@@ -21,4 +21,24 @@ public class AppUser {
     private String nickname;
     private Integer createdBy;
 
+    public AppUser(String firstName, String lastName, String nickname, Integer createdBy) {
+
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nickname = nickname;
+        this.createdBy = createdBy;
+    }
+
+    public AppUser() {
+
+    }
+
+    public AppUser(PlayedGame playedGame, String firstName, String lastName, String nickname, Integer createdBy) {
+
+        this.game = playedGame;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nickname = nickname;
+        this.createdBy = createdBy;
+    }
 }
