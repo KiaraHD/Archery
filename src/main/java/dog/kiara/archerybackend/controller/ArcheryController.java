@@ -28,6 +28,8 @@ public class ArcheryController {
             System.out.println("appuser: " + appUserList.get(i).getFirstName());
         }
 
+        appUserService.saveUserToDatabase();
+
         appUserService.searchByNickname();
 
         System.out.println();

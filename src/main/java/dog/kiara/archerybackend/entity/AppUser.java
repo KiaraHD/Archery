@@ -1,19 +1,19 @@
 package dog.kiara.archerybackend.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Data
 @Entity
 public class AppUser {
 
     @Id
-    @GeneratedValue
-    private int userId;
+   @GeneratedValue(generator = "increment", strategy = GenerationType.SEQUENCE)
+    @GenericGenerator(strategy = "increment",name = "increment")
+//    @Column(name = "userid", updatable = false)
+    private Integer userId = null;
     @OneToOne
     private PlayedGame game;
     private String firstName;
@@ -35,10 +35,11 @@ public class AppUser {
 
     public AppUser(PlayedGame playedGame, String firstName, String lastName, String nickname, Integer createdBy) {
 
-        this.game = playedGame;
+            this.game = playedGame;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickname = nickname;
         this.createdBy = createdBy;
     }
+
 }
