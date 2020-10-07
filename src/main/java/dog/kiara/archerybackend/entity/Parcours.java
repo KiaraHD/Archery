@@ -1,6 +1,7 @@
 package dog.kiara.archerybackend.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,8 +11,9 @@ import java.util.List;
 public class Parcours {
 
     @Id
-    @GeneratedValue
-    private int parcourId;
+    @GeneratedValue(generator = "increment", strategy = GenerationType.SEQUENCE)
+    @GenericGenerator(strategy = "increment",name = "increment")
+    private Integer parcourId;
     @OneToOne
     private PlayedGame game;
     private String parcourName;
@@ -19,5 +21,5 @@ public class Parcours {
     @OneToMany
     private List<Targets> targets;
     @OneToOne
-    private AppUser createdBye;
+    private AppUser createdBy;
 }

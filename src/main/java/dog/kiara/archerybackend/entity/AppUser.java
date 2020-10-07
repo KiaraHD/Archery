@@ -12,7 +12,6 @@ public class AppUser {
     @Id
    @GeneratedValue(generator = "increment", strategy = GenerationType.SEQUENCE)
     @GenericGenerator(strategy = "increment",name = "increment")
-//    @Column(name = "userid", updatable = false)
     private Integer userId = null;
     @OneToOne
     private PlayedGame game;
@@ -42,4 +41,10 @@ public class AppUser {
         this.createdBy = createdBy;
     }
 
+    public AppUser(String firstname, String lastname, String nickname) {
+
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nickname = nickname;
+    }
 }
