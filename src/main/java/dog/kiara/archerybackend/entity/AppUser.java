@@ -19,6 +19,7 @@ public class AppUser {
     private String lastName;
     private String nickname;
     private Integer createdBy;
+    private String password;
 
     public AppUser(String firstName, String lastName, String nickname, Integer createdBy) {
 
@@ -41,10 +42,11 @@ public class AppUser {
         this.createdBy = createdBy;
     }
 
-    public AppUser(String firstname, String lastname, String nickname) {
+    public AppUser(String firstname, String lastname, String nickname, String password) {
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickname = nickname;
+        this.password = password;
     }
 }

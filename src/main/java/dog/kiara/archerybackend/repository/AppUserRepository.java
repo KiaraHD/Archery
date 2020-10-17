@@ -14,7 +14,7 @@ import java.util.List;
 public interface AppUserRepository extends JpaRepository<AppUser, String> {
 
 
-    @Query(value = "select * from app_user a where a.nickname = :nickname", nativeQuery = true)
+    @Query(value = "select * from app_user a where a.nickname = ':nickname'", nativeQuery = true)
     List<AppUser> findAppUsersByNickname(String nickname);
 
     @Query(value = "select * from app_user a where a.user_id = :user_id", nativeQuery = true)

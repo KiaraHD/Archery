@@ -34,14 +34,14 @@ public class ArcheryService {
         return appUserRepository.findAll();
     }
 
-    public AppUser searchByNickname(String nickname) {
+    public AppUser searchUserByNickname(String nickname) {
 
         return appUserRepository.findAppUsersByNickname(nickname).get(0);
     }
 
-    public void saveUserToDatabase(String nickname, String firstname, String lastname) {
+    public void saveUserToDatabase(String nickname, String firstname, String lastname, String password) {
 
-        AppUser appUser = new AppUser(firstname, lastname, nickname);
+        AppUser appUser = new AppUser(firstname, lastname, nickname, password);
 
         appUserRepository.saveAndFlush(appUser);
     }
@@ -51,7 +51,7 @@ public class ArcheryService {
         return parcoursRepository.findAll();
     }
 
-//    public void saveParocurs() {
+//    public void saveParcours() {
 //
 //        Parcours parcours = new Parcours();
 //        parcours.setLocation("ampfelwang");
@@ -63,7 +63,7 @@ public class ArcheryService {
 //        List<Targets> targets = new ArrayList<>();
 //        targets.add(new Targets("elch", parcours1));
 //        targets.add(new Targets("maus", parcours1));
-//        targets.add(new Targets("drache", parcours));
+//         targets.add(new Targets("drache", parcours));
 //    }
 
     public List<PlayedGame> selectAllPlayedGames() {
