@@ -1,5 +1,6 @@
 package dog.kiara.archerybackend.entity;
 
+import com.google.api.client.util.Base64;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -10,8 +11,8 @@ import javax.persistence.*;
 public class AppUser {
 
     @Id
-   @GeneratedValue(generator = "increment", strategy = GenerationType.SEQUENCE)
-    @GenericGenerator(strategy = "increment",name = "increment")
+    @GeneratedValue(generator = "increment", strategy = GenerationType.SEQUENCE)
+    @GenericGenerator(strategy = "increment", name = "increment")
     private Integer userId = null;
     @OneToOne
     private PlayedGame game;
@@ -27,7 +28,7 @@ public class AppUser {
 
     public AppUser(PlayedGame playedGame, String firstName, String lastName, String nickname, Integer createdBy) {
 
-            this.game = playedGame;
+        this.game = playedGame;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickname = nickname;
@@ -39,7 +40,7 @@ public class AppUser {
         this.firstName = firstname;
         this.lastName = lastname;
         this.nickname = nickname;
-        this.password = password;
+        this.password = Base64.encodeBase64String(password.getBytes());
     }
 
     public AppUser(String firstname, String lastname, String nickname, Integer createdBy) {
