@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Data
 @Entity
@@ -18,4 +19,8 @@ public class PlayedGame {
 
     public int scoredPoints;
 
+    public PlayedGame(int scoredPoints) {
+
+        this.scoredPoints = scoredPoints;
+    }
 }

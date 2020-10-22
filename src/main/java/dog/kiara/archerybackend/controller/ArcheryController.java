@@ -1,5 +1,7 @@
 package dog.kiara.archerybackend.controller;
 
+import dog.kiara.archerybackend.entity.AppUser;
+import dog.kiara.archerybackend.entity.Targets;
 import dog.kiara.archerybackend.login.Login;
 import dog.kiara.archerybackend.service.ArcheryService;
 import lombok.SneakyThrows;
@@ -7,10 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 public class ArcheryController {
+
 
     @Autowired
     private ArcheryService archeryService;
@@ -19,7 +24,7 @@ public class ArcheryController {
 
     @SneakyThrows
     @GetMapping("/")
-    public String hi(Map<String, Object> model) {
+    public String defaultPage(Map<String, Object> model) {
         model.put("test", "hallo ich bin ein test!");
 
 
@@ -30,11 +35,27 @@ public class ArcheryController {
 //        System.out.println(login.resetPassword());
 
 
-        archeryService.saveUserToDatabase("hans", "Hansen", "Hansenson", "123");
+//        AppUser appUser = new AppUser("hans", "Hansen", "Hansenson", "123");
 
-        login.loginAppuser("hans", "123");
+        List<Targets> targets = new ArrayList<>();
+        targets.add(new Targets("elch"));
+        targets.add(new Targets("maus"));
+        targets.add(new Targets("drache"));
+
+
+        archeryService.saveParcoursToDatabase(targets, "Hansenson", "bogenparcours", "ampfelwang");
+
+
+
+        archeryService.saveCreatedUserToDatabase("herbert", "eder", "bert", "Hansenson");
 
         return "index";
 
     }
+
+   public void savePoints(boolean is3ArrowRating){
+
+
+    }
+
 }

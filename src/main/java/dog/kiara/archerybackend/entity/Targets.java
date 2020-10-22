@@ -22,9 +22,9 @@ public class Targets {
 
     }
 
-    public Targets(String targetName, Parcours parcour) {
+    public Targets(String targetName) {
 
         this.targetName = targetName;
-        this.parcour = parcour;
+//        this.parcour = parcour;
     }
 }

@@ -16,5 +16,5 @@ public interface TargetRepository extends JpaRepository<Targets, String> {
     List<Parcours> getTargetById(int target_id);
 
     @Query(value = "select * from targets t where t.parcpur_parcour_id = :parcour_id", nativeQuery = true)
-    List<Parcours> findTargetByParcour(int parcour_id);
+    List<Parcours> findTargetsByParcour(int parcour_id);
 }

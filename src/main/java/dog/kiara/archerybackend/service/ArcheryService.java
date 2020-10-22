@@ -47,24 +47,26 @@ public class ArcheryService {
     }
 
 
+    public void saveParcoursToDatabase(List<Targets> targetList, String createdby, String name, String location) {
+
+
+        Parcours parcours = new Parcours(name, location, appUserRepository.findAppUsersByNickname(createdby).get(0), targetList);
+        parcoursRepository.saveAndFlush(parcours);
+    }
+
     public List<Parcours> selectAllParcours() {
         return parcoursRepository.findAll();
     }
 
-//    public void saveParcours() {
-//
-//        Parcours parcours = new Parcours();
-//        parcours.setLocation("ampfelwang");
-//        parcours.setParcourName("Bogenschießen");
-//        parcoursRepository.saveAndFlush(parcours);
-//
-//       Parcours parcours1 = parcoursRepository.findParcoursByName("ampfelwang").get(0);
-//
-//        List<Targets> targets = new ArrayList<>();
-//        targets.add(new Targets("elch", parcours1));
-//        targets.add(new Targets("maus", parcours1));
-//         targets.add(new Targets("drache", parcours));
-//    }
+    public void saveCreatedUserToDatabase(String firstname, String lastname, String nickname, String createdBy) {
+
+        Integer createdByID = appUserRepository.findAppUsersByNickname(createdBy).get(0).getUserId();
+
+        AppUser createdUser = new AppUser(firstname, lastname, nickname, createdByID);
+
+        appUserRepository.saveAndFlush(createdUser);
+
+    }
 
     public List<PlayedGame> selectAllPlayedGames() {
         return playedGameRepository.findAll();
@@ -73,5 +75,66 @@ public class ArcheryService {
     public List<Targets> selectAllTargets() {
         return targetRepository.findAll();
     }
-}
 
+    public void saveAverage(int scoredPoints){
+
+        PlayedGame playedGame = new PlayedGame();
+
+        playedGameRepository.saveAndFlush(playedGame);
+    }
+
+    /*Area:
+
+    1 - body
+    2 - Kill
+    3 - inner kill
+
+     */
+
+    public int calculate3ArrowRating(int numberOfShots, int area) {
+
+        if (numberOfShots == 1) {
+            if (area == 1) {
+                return 16;
+            } else if (area == 2) {
+                return 18;
+            } else if (area == 3) {
+                return 20;
+            }
+        } else if (numberOfShots == 2) {
+            if (area == 1) {
+                return 10;
+            } else if (area == 2) {
+                return 12;
+            } else if (area == 3) {
+                return 14;
+            }
+
+        } else if (numberOfShots == 3) {
+            if (area == 1) {
+                return 4;
+            } else if (area == 2) {
+                return 6;
+            } else if (area == 3) {
+                return 8;
+            }
+
+        }
+        return 0;
+    }
+
+
+    public int calculate2ArrowRating(int area) {
+
+        if (area == 3) {
+            return 5;
+        } else if (area == 2) {
+
+            return 8;
+        } else if (area == 1) {
+
+            return 10;
+        }
+        return 0;
+    }
+}
