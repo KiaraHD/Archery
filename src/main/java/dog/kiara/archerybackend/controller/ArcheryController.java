@@ -47,13 +47,13 @@ public class ArcheryController {
         AppUser appUserFromCookie = getAppUserFromCookie(request.getSession());
         if (appUserFromCookie != null) {
             model.put("name", appUserFromCookie.getNickname());
-            return "index.xhtml";
+            return "index.html";
         }
 
         AppUser appUser = loginService.loginAppuser(username, password);
         if (appUser == null) {
             model.put("name", "falsches passwort");
-            return "index.xhtml";
+            return "index.html";
         }
         UUID uuid = UUID.randomUUID();
 
@@ -62,7 +62,7 @@ public class ArcheryController {
 
         userMap.put(uuid.toString(), appUser);
         model.put("name", appUser.getNickname());
-        return "index.xhtml";
+        return "index.html";
     }
 
     @GetMapping("/logout")
@@ -73,7 +73,7 @@ public class ArcheryController {
             session.invalidate();
         }
 
-        return "index.xhtml";
+        return "index.html";
     }
 
     private AppUser getAppUserFromCookie(HttpSession session) {
