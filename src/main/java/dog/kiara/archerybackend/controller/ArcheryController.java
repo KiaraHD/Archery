@@ -30,14 +30,14 @@ public class ArcheryController {
 
     @SneakyThrows
     @GetMapping("/")
-    public String hi(Map<String, Object> model, HttpServletRequest request) {
+    public String hi(HttpServletRequest request) {
 
         AppUser appUserFromCookie = getAppUserFromCookie(request.getSession());
         if (appUserFromCookie == null) {
             return "index";
         }
 
-        model.put("name", appUserFromCookie.getPassword());
+//        model.put("name", appUserFromCookie.getPassword());
         return "index";
     }
 

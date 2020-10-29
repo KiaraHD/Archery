@@ -17,18 +17,17 @@
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
     <title>Archery</title>
-    <link rel="shortcut icon" href="assets/img/darts.png">
+    <link rel="shortcut icon" href="../assets/img/darts.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
 
-    <!--CSS/JS-->
+    <!--CSS-->
 
     <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
-    <link rel="stylesheet" href="scss/account.css">
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
-    <script src="js/all.js"></script>
-    <link rel="stylesheet" href="css/index.css">
+    <script src="../js/all.js"></script>
+    <link rel="stylesheet" href="../css/index.css">
 
     <!--Icons-->
 
@@ -56,7 +55,7 @@
     </script>
     <link href="node_modules/@coreui/chartjs/dist/css/coreui-chartjs.css" rel="stylesheet">
   </head>
-  <body class="c-app" id="body" onload="showUserData()">
+  <body class="c-app" id="body">
     <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
       <div class="c-sidebar-brand d-lg-down-none">
         <svg class="c-sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
@@ -79,7 +78,7 @@
     <div class="c-wrapper c-fixed-components">
       <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
 
-        <img src="assets/img/Logo_VGSP_transparent.png" width="120" height="50" onclick="location.href='impressum.html'">
+        <img src="../assets/img/Logo_VGSP_transparent.png" width="120" height="50" onclick="location.href='impressum.html'">
 
         <ul class="c-header-nav ml-auto mr-4">
           <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -95,7 +94,7 @@
                   <i class="fas fa-users"></i> Users</a>
               <a class="dropdown-item" href="parcours.html">
                   <i class="fas fa-bullseye"></i> Parcoure</a>
-              <a class="dropdown-item" href="start.html">
+                <a class="dropdown-item" href="start.html">
                   <i class="fas fa-sign-out-alt"></i> Abmelden</a>
             </div>
           </li>
@@ -103,10 +102,11 @@
       </header>
       <div class="c-body" style="overflow: scroll;">
         <main class="c-main">
-          <div class="container-fluid"></div>
+            
+            <div class="container-fluid">
+                    <h1 style="color: blue;">Benutzer</h1>
+            </div>
         </main>
-
-
         <footer class="c-footer">
           <div><a href="https://github.com/Kiara144p/Archery" target="_blank">Archery</a> &copy; 2020 VGSP</div>
           <div class="ml-auto">Powered by&nbsp;<a href="https://coreui.io/">CoreUI</a></div>
