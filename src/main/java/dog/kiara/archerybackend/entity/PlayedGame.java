@@ -23,4 +23,9 @@ public class PlayedGame {
 
         this.scoredPoints = scoredPoints;
     }
+
+    public PlayedGame() {
+
+    }
+
 }

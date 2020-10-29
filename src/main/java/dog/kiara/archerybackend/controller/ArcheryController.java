@@ -1,7 +1,8 @@
 package dog.kiara.archerybackend.controller;
 
 import dog.kiara.archerybackend.entity.AppUser;
-import dog.kiara.archerybackend.login.LoginService;
+import dog.kiara.archerybackend.entity.Parcours;
+import dog.kiara.archerybackend.service.LoginService;
 import dog.kiara.archerybackend.service.ArcheryService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -45,13 +47,13 @@ public class ArcheryController {
         AppUser appUserFromCookie = getAppUserFromCookie(request.getSession());
         if (appUserFromCookie != null) {
             model.put("name", appUserFromCookie.getNickname());
-            return "index";
+            return "index.xhtml";
         }
 
         AppUser appUser = loginService.loginAppuser(username, password);
         if (appUser == null) {
-            model.put("name", "falsch, dummkopf");
-            return "index";
+            model.put("name", "falsches passwort");
+            return "index.xhtml";
         }
         UUID uuid = UUID.randomUUID();
 
@@ -60,7 +62,7 @@ public class ArcheryController {
 
         userMap.put(uuid.toString(), appUser);
         model.put("name", appUser.getNickname());
-        return "index";
+        return "index.xhtml";
     }
 
     @GetMapping("/logout")
@@ -71,13 +73,18 @@ public class ArcheryController {
             session.invalidate();
         }
 
-        return "index";
+        return "index.xhtml";
     }
 
     private AppUser getAppUserFromCookie(HttpSession session) {
         Object user = session.getAttribute("user");
         if (user == null) return null;
         return userMap.get(user.toString());
+    }
+
+    public List<Parcours> getAllParcours(){
+
+        return archeryService.selectAllParcours();
     }
 
 }

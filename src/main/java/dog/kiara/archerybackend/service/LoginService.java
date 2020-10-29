@@ -1,4 +1,4 @@
-package dog.kiara.archerybackend.login;
+package dog.kiara.archerybackend.service;
 
 import dog.kiara.archerybackend.entity.AppUser;
 import dog.kiara.archerybackend.service.ArcheryService;

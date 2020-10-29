@@ -76,9 +76,9 @@ public class ArcheryService {
         return targetRepository.findAll();
     }
 
-    public void saveAverage(int scoredPoints){
+    public void saveAverage(int scoredPoints) {
 
-        PlayedGame playedGame = new PlayedGame(1);
+        PlayedGame playedGame = new PlayedGame(scoredPoints);
 
         playedGameRepository.saveAndFlush(playedGame);
     }
