@@ -102,6 +102,54 @@ function onclickStartEvent()
     
     document.getElementsByClassName("container-fluid")[0].innerHTML = "";
     document.getElementsByClassName("container-fluid")[0].appendChild(h1);
+    br = document.createElement("br");
+    document.getElementsByClassName("container-fluid")[0].appendChild(br);
+
+    for (var i = 1; i < 11; i++)
+    {
+        h1.innerHTML = value + " - Tier " + i;
+
+        
+        for (var j = 1; j < 4; j++)
+        {
+            var h3 = document.createElement("h3");
+            h3.style = "color: #0066cc";
+            h3.innerHTML = "User " + j;
+            document.getElementsByClassName("container-fluid")[0].appendChild(h3);
+            
+            var points = 20;
+
+            for (var k = 1; k < 4; k++)
+            {
+                var label = document.createElement("label");
+                label.innerHTML = "Pfeil " + k + ":";
+    
+                var select = document.createElement("select");
+                select.name = "arrow1";
+                select.id = "arrow1";
+                select.style = "width: 220px"
+    
+                for (var l = 1; l < 4; l++)
+                {
+                    var option = document.createElement("option");
+                    option.value = ("arrow" + k);
+                    option.innerHTML = points;
+                    select.append(option);
+                    points -= 2;
+                }
+
+                document.getElementsByClassName("container-fluid")[0].appendChild(label);
+                document.getElementsByClassName("container-fluid")[0].appendChild(select);
+                br = document.createElement("br");
+                document.getElementsByClassName("container-fluid")[0].appendChild(br);
+            }
+        }
+
+        var buttonContinue = document.createElement("button");
+        buttonContinue.style.borderRadius = "11px";
+        buttonContinue.innerHTML = "Nächstes 3D-Tier";
+        document.getElementsByClassName("container-fluid")[0].appendChild(buttonContinue);
+    }
 
     window.onbeforeunload = function (evt) 
     {
