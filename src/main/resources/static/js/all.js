@@ -1,34 +1,34 @@
 //List of all Parcours and Users
-var parcourList = [];
-localStorage.setItem("someVarKey", parcourList);
-var userList = [];
+let parcourList = [];
+localStorage.setItem("someletKey", parcourList);
+let userList = [];
 
 //List all users on index.html
 function createUserForm()
 {
-    var form = document.createElement("form");
+    let form = document.createElement("form");
 
-    var idName = "user";
+    let idName = "user";
 
-    var h2 = document.createElement("h2");
+    let h2 = document.createElement("h2");
     h2.style = "color: #0066cc";
     h2.innerHTML = "Benutzer auswählen:";
     form.append(h2);
 
-    for (var i = 1; i < 4; i++)
+    for (let i = 1; i < 4; i++)
     {
-        var checkboxButton = document.createElement("input");
+        let checkboxButton = document.createElement("input");
         checkboxButton.type = "checkbox";
         checkboxButton.id = (idName + i);
         checkboxButton.value = (idName + i);
         form.append(checkboxButton);
-        var label = document.createElement("label");
+        let label = document.createElement("label");
         label.innerHTML = ("[User from Backend]" + i);
         label.htmlFor = (idName + i);
 
         form.append(label);
 
-        var br = document.createElement("br");
+        let br = document.createElement("br");
         form.append(br);
     }
     
@@ -44,14 +44,14 @@ function createUserForm()
 
     form = document.createElement("form");
 
-    var select = document.createElement("select");
+    let select = document.createElement("select");
     select.name = "parcours";
     select.id = "parcours";
     select.style = "width: 220px"
 
-    for (var i = 1; i < 4; i++)
+    for (let i = 1; i < 4; i++)
     {
-        var option = document.createElement("option");
+        let option = document.createElement("option");
         option.value = ("parcour" + i);
         option.innerHTML = ("Parcour" + i);
 
@@ -65,7 +65,7 @@ function createUserForm()
     br = document.createElement("br");
     document.getElementsByClassName("container-fluid")[0].appendChild(br);
 
-    var button = document.createElement("button");
+    let button = document.createElement("button");
     button.setAttribute('onclick', 'onclickStartEvent()');
     button.style.borderRadius = "11px";
     button.innerHTML = "Event starten";
@@ -75,15 +75,15 @@ function createUserForm()
 
 function onclickStartEvent()
 {
-    var users = document.querySelectorAll("*[id^='user']");
+    let users = document.querySelectorAll("*[id^='user']");
 
-    var selectedUsers = [];
+    let selectedUsers = [];
 
-    for (var i = 0; i < users.length; i++)
+    for (let i = 0; i < users.length; i++)
     {
         if (users[i].id.includes("user"))
         {
-            var input = document.getElementById(users[i].id);
+            let input = document.getElementById(users[i].id);
 
             if (input.checked == true)
             {
@@ -92,11 +92,11 @@ function onclickStartEvent()
         }
     }
 
-    var selectParcour = document.getElementById("parcours");
+    let selectParcour = document.getElementById("parcours");
     
-    var value = selectParcour.options[selectParcour.selectedIndex].innerHTML;
+    let value = selectParcour.options[selectParcour.selectedIndex].innerHTML;
     
-    var h1 = document.createElement("h1");
+    let h1 = document.createElement("h1");
     h1.style = "color: #0066cc";
     h1.innerHTML = value;
     
@@ -153,7 +153,7 @@ function onclickStartEvent()
 
     window.onbeforeunload = function (evt) 
     {
-        var message = 'Are you sure you want to leave?';
+        let message = 'Are you sure you want to leave?';
         if (typeof evt == 'undefined') 
         {
           evt = window.event;
@@ -169,25 +169,25 @@ function onclickStartEvent()
 //Show data on account.html
 function showUserData()
 {
-    var h1 = document.createElement("h1");
+    let h1 = document.createElement("h1");
     h1.style = "color: #0066cc";
     h1.innerHTML = "Konto";
 
-    var br = document.createElement("br");
+    let br = document.createElement("br");
 
-    var pFirstname = document.createElement("p");
+    let pFirstname = document.createElement("p");
     pFirstname.innerHTML = "Vorname:";
 
-    var pLastname = document.createElement("p");
+    let pLastname = document.createElement("p");
     pLastname.innerHTML = "Nachname:";
 
-    var pNickname = document.createElement("p");
+    let pNickname = document.createElement("p");
     pNickname.innerHTML = "Nickname:";
 
-    var pPassword = document.createElement("p");
+    let pPassword = document.createElement("p");
     pPassword.innerHTML = "Passwort:";
 
-    var button = document.createElement("button");
+    let button = document.createElement("button");
     button.innerHTML = "Kontodaten bearbeiten";
     button.setAttribute("onclick", "editUserData()");
     button.style.borderRadius = "11px";
@@ -203,7 +203,7 @@ function showUserData()
 
 function showUsers()
 {
-    var h1 = document.createElement("h1");
+    let h1 = document.createElement("h1");
     h1.style = "color: #0066cc";
     h1.innerHTML = "Benutzer";
 
@@ -213,16 +213,16 @@ function showUsers()
 //Create editable form on account.html
 function editUserData()
 {
-    var form = document.createElement("form");
+    let form = document.createElement("form");
 
-    var label = document.createElement("label");
+    let label = document.createElement("label");
     label.innerHTML = "Vorname: ";
     form.append(label);
 
-    var br = document.createElement("br");
+    let br = document.createElement("br");
     form.append(br);
 
-    var input = document.createElement("input");
+    let input = document.createElement("input");
     input.type = "text";
     input.id = "firstname";
     input.value = "[Firstname from Backend]";
@@ -281,7 +281,7 @@ function editUserData()
     br = document.createElement("br");
     form.append(br);
 
-    var button = document.createElement("button");
+    let button = document.createElement("button");
     button.innerHTML = "Bestätigen";
     button.setAttribute("onclick", "writeToDatabase(); body.reload()");
     button.style.borderRadius = "11px";
@@ -300,33 +300,33 @@ function getParcoursFromDatabase()
 //Save changes in database
 function writeToDatabase()
 {
-    var nameInput = document.getElementById("name");
-    var placeInput = document.getElementById("place");
-    var nrOfAnimals = document.getElementById("numberOfAnimals");
+    let nameInput = document.getElementById("name");
+    let placeInput = document.getElementById("place");
+    let nrOfAnimals = document.getElementById("numberOfAnimals");
 
-    var parcour = {nameInput, placeInput, nrOfAnimals};
+    let parcour = {nameInput, placeInput, nrOfAnimals};
     parcourList.push(parcour);
 }
 
 //Parcour-Stuff
 function createParcourList()
 {
-    var h1 = document.createElement("h1");
+    let h1 = document.createElement("h1");
     h1.style = "color: #0066cc";
     h1.innerHTML = "Parcoure";
 
-    var table = document.createElement("table");
+    let table = document.createElement("table");
     table.style = "width: 100%";
 
-    var tr = document.createElement("tr");
+    let tr = document.createElement("tr");
 
-    var th1 = document.createElement("th");
+    let th1 = document.createElement("th");
     th1.innerHTML = "Name";
 
-    var th2 = document.createElement("th");
+    let th2 = document.createElement("th");
     th2.innerHTML = "Ort";
 
-    var th3 = document.createElement("th");
+    let th3 = document.createElement("th");
     th3.innerHTML = "Anzahl der 3D-Tiere";
 
     tr.append(th1);
@@ -337,13 +337,13 @@ function createParcourList()
 
     //TODO
 
-    for (var i = 0; i < parcourList.length; i++)
+    for (let i = 0; i < parcourList.length; i++)
     {
-        var tr = document.createElement("tr");
+        let tr = document.createElement("tr");
 
-        for (var j = 0; j < parcourList[i].length; j++)
+        for (let j = 0; j < parcourList[i].length; j++)
         {
-            var td = document.createElement("td");
+            let td = document.createElement("td");
             td.innerHTML = parcourList[i][j];
 
             tr.append(td);
@@ -352,7 +352,7 @@ function createParcourList()
         table.append(tr);
     }
 
-    var button = document.createElement("button");
+    let button = document.createElement("button");
     button.innerHTML = "Neuen Parcour erstellen";
     button.setAttribute("onclick", "editParcourData()");
     button.style.borderRadius = "11px";
@@ -369,16 +369,16 @@ function createParcourList()
 
 function editParcourData()
 {
-    var form = document.createElement("form");
+    let form = document.createElement("form");
 
-    var label = document.createElement("label");
+    let label = document.createElement("label");
     label.innerHTML = "Name:";
     form.append(label);
 
-    var br = document.createElement("br");
+    let br = document.createElement("br");
     form.append(br);
 
-    var input = document.createElement("input");
+    let input = document.createElement("input");
     input.type = "text";
     input.id = "name";
     form.append(input);
@@ -421,7 +421,7 @@ function editParcourData()
     br = document.createElement("br");
     form.append(br);
 
-    var button = document.createElement("button");
+    let button = document.createElement("button");
     button.innerHTML = "Parcour erstellen";
     button.setAttribute("onclick", "writeToDatabase(); body.reload()");
     button.style.borderRadius = "11px";
