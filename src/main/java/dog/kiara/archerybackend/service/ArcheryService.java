@@ -127,6 +127,7 @@ public class ArcheryService {
     public int calculate2ArrowRating(int area) {
 
         if (area == 3) {
+
             return 5;
         } else if (area == 2) {
 

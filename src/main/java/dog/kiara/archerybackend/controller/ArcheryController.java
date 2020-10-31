@@ -4,7 +4,9 @@ import dog.kiara.archerybackend.entity.AppUser;
 import dog.kiara.archerybackend.entity.Parcours;
 import dog.kiara.archerybackend.service.LoginService;
 import dog.kiara.archerybackend.service.ArcheryService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,35 +27,78 @@ public class ArcheryController {
 
     private final static Map<String, AppUser> userMap = new HashMap<>();
 
+    @Getter
+    @Setter
+    private static String username = "";
+
     private final ArcheryService archeryService;
     private final LoginService loginService;
 
     @SneakyThrows
     @GetMapping("/")
-    public String hi(HttpServletRequest request) {
+    public String defaultPage(HttpServletRequest request) {
+        return getLogin(request, "index");
+    }
 
+    @SneakyThrows
+    @GetMapping("/parcours")
+    public String parcours(HttpServletRequest request) {
         AppUser appUserFromCookie = getAppUserFromCookie(request.getSession());
         if (appUserFromCookie == null) {
-            return "index";
+            return "parcours";
         }
 
-//        model.put("name", appUserFromCookie.getPassword());
-        return "index";
+        return "parcours";
+    }
+
+    @SneakyThrows
+    @GetMapping("/account")
+    public String account(HttpServletRequest request) {
+        AppUser appUserFromCookie = getAppUserFromCookie(request.getSession());
+        if (appUserFromCookie == null) {
+            return "account";
+        }
+
+        return "account";
+    }
+
+    @SneakyThrows
+    @GetMapping("/users")
+    public String users(HttpServletRequest request) {
+        // getLogin();
+        return "users";
+    }
+
+    @SneakyThrows
+    @GetMapping("/start")
+    public String start(Map<String, Object> model, HttpServletRequest request) {
+        // getLogin();
+        model.put("username", "");
+        model.put("password", "");
+        return "start";
+    }
+
+    private String getLogin(HttpServletRequest request, String normalPage) {
+        AppUser appUserFromCookie = getAppUserFromCookie(request.getSession());
+        if (appUserFromCookie == null) {
+            return "start";
+        }
+        return normalPage;
     }
 
     @GetMapping("/login")
-    public String login(Map<String, Object> model, @RequestHeader(defaultValue = "hans", required = false) String username, @RequestHeader(defaultValue = "123", required = false) String password,
-                        HttpServletRequest request) {
+    public String login(Map<String, Object> model, @RequestHeader(defaultValue = "hans", required = false) String username,
+                        @RequestHeader(defaultValue = "123", required = false) String password, HttpServletRequest request) {
         AppUser appUserFromCookie = getAppUserFromCookie(request.getSession());
         if (appUserFromCookie != null) {
             model.put("name", appUserFromCookie.getNickname());
-            return "index.html";
+            return "index";
         }
 
         AppUser appUser = loginService.loginAppuser(username, password);
         if (appUser == null) {
             model.put("name", "falsches passwort");
-            return "index.html";
+            return "index";
         }
         UUID uuid = UUID.randomUUID();
 
@@ -62,18 +107,18 @@ public class ArcheryController {
 
         userMap.put(uuid.toString(), appUser);
         model.put("name", appUser.getNickname());
-        return "index.html";
+        return "index";
     }
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
 
-       HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
         }
 
-        return "index.html";
+        return "start";
     }
 
     private AppUser getAppUserFromCookie(HttpSession session) {
@@ -82,7 +127,7 @@ public class ArcheryController {
         return userMap.get(user.toString());
     }
 
-    public List<Parcours> getAllParcours(){
+    public List<Parcours> getAllParcours() {
 
         return archeryService.selectAllParcours();
     }
