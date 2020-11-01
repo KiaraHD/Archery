@@ -24,7 +24,8 @@
                         <p class="text-muted">Mit einem bestehenden Benutzer anmelden</p>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend"></div>
-                            <input id="usernameField" class="form-control" type="text" placeholder="Nickname">
+                            <input id="username" name="username" class="form-control"
+                                   type="text" placeholder="Nickname" th:value="*{username}">
                         </div>
                         <div class="input-group mb-4">
                             <div class="input-group-prepend"></div>
@@ -39,13 +40,14 @@
                             </div>
 
                             <div style="margin-left: 13px; margin-top: 10px;">
-                                <button th:onclick=""
+                                <button th:onclick="'location.href = \'/login?username=' + *{username} + '\''"
                                         class="btn btn-primary px-5" type="button"
                                         style="background-color: green; border-color: green;">Anmelden
                                 </button>
                             </div>
                             <div style="margin-left: 13px; margin-top: 10px;">
-                                <button onclick="location.href = '/register'" class="btn btn-primary px-5" type="button"
+                                <button onclick="location.href = '/register'" class="btn btn-primary px-5"
+                                        type="button"
                                         style="background-color: #0066cc; border-color: #0066cc;">Registrieren
                                 </button>
                             </div>

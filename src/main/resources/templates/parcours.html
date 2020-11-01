@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">>
 <head>
   <base href="./">
   <meta charset="utf-8">
@@ -68,5 +68,79 @@
 
 </div>
 </div>
+
+
+<script th:inline="javascript">
+  //Save changes in database
+  function writeToDatabase()
+  {
+    let nameInput = document.getElementById("name");
+    let placeInput = document.getElementById("place");
+    let nrOfAnimals = document.getElementById("numberOfAnimals");
+
+    let service = [[${service}]]
+    service.createParcour(nameInput, placeInput, [[$]])
+  }
+
+  //Parcour-Stuff
+  function createParcourList()
+  {
+    let h1 = document.createElement("h1");
+    h1.style = "color: #0066cc";
+    h1.innerHTML = "Parcoure";
+
+    let table = document.createElement("table");
+    table.style = "width: 100%";
+
+    let tr = document.createElement("tr");
+
+    let th1 = document.createElement("th");
+    th1.innerHTML = "Name";
+
+    let th2 = document.createElement("th");
+    th2.innerHTML = "Ort";
+
+    let th3 = document.createElement("th");
+    th3.innerHTML = "Anzahl der 3D-Tiere";
+
+    tr.append(th1);
+    tr.append(th2);
+    tr.append(th3);
+
+    table.append(tr);
+
+    //TODO
+
+    for (let i = 0; i < parcourList.length; i++)
+    {
+      let tr = document.createElement("tr");
+
+      for (let j = 0; j < parcourList[i].length; j++)
+      {
+        let td = document.createElement("td");
+        td.innerHTML = parcourList[i][j];
+
+        tr.append(td);
+      }
+
+      table.append(tr);
+    }
+
+    let button = document.createElement("button");
+    button.innerHTML = "Neuen Parcour erstellen";
+    button.setAttribute("onclick", "editParcourData()");
+    button.style.borderRadius = "11px";
+
+    br = document.createElement("br");
+
+    document.getElementsByClassName("container-fluid")[0].appendChild(h1);
+    document.getElementsByClassName("container-fluid")[0].appendChild(br);
+    document.getElementsByClassName("container-fluid")[0].appendChild(table);
+    br = document.createElement("br");
+    document.getElementsByClassName("container-fluid")[0].appendChild(br);
+    document.getElementsByClassName("container-fluid")[0].appendChild(button);
+  }
+</script>
+
 </body>
 </html>

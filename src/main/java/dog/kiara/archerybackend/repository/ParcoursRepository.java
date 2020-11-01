@@ -19,6 +19,7 @@ public interface ParcoursRepository extends JpaRepository<Parcours, String> {
     List<Parcours> findParcoursByName(String parcour_name);
 
     @Query(value = "select * from parcours p where p.created_by_user_id = :loggedinUser", nativeQuery = true)
-    List<Parcours> findParcoursByCreatedUser(String loggedinUser);
+    List<Parcours> findParcoursByCreatedUser(int loggedinUser);
+
 }
 

@@ -18,6 +18,7 @@ public class AppUser {
     private PlayedGame game;
     private String firstName;
     private String lastName;
+    @Column(unique = true)
     private String nickname;
     private Integer createdBy;
     private String password;

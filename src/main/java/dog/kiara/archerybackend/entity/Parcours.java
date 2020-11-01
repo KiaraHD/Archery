@@ -1,6 +1,7 @@
 package dog.kiara.archerybackend.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.GenericGenerator;
@@ -10,7 +11,6 @@ import java.util.List;
 
 @Entity
 @Data
-
 public class Parcours {
 
     @Id
@@ -35,5 +35,9 @@ public class Parcours {
     this.location = location;
     this.createdBy = createdBy;
     this.targets = targetList;
+    }
+
+    public Parcours() {
+
     }
 }

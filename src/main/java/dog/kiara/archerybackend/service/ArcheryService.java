@@ -83,6 +83,18 @@ public class ArcheryService {
         playedGameRepository.saveAndFlush(playedGame);
     }
 
+    public List<AppUser> getUsersByCreatorId(int creatorId) {
+        return appUserRepository.findUserByCreator(creatorId);
+    }
+
+    public List<Parcours> getParcoursByUser(int userId) {
+        return parcoursRepository.findParcoursByCreatedUser(userId);
+    }
+
+    public void createParcour(String name, String location, AppUser appUser) {
+        parcoursRepository.saveAndFlush(new Parcours(name, location, appUser, new ArrayList<>()));
+    }
+
     /*Area:
 
     1 - body
