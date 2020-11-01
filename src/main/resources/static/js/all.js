@@ -1,6 +1,5 @@
 //List of all Parcours and Users
 let parcourList = [];
-localStorage.setItem("someletKey", parcourList);
 let userList = [];
 
 function onclickStartEvent()
@@ -35,50 +34,102 @@ function onclickStartEvent()
     br = document.createElement("br");
     document.getElementsByClassName("container-fluid")[0].appendChild(br);
 
+    var buttonWasClicked = true;
+
     for (var i = 1; i < 11; i++)
     {
-        h1.innerHTML = value + " - Tier " + i;
-
-        
-        for (var j = 1; j < 4; j++)
+        if (buttonWasClicked)
         {
-            var h3 = document.createElement("h3");
-            h3.style = "color: #0066cc";
-            h3.innerHTML = "User " + j;
-            document.getElementsByClassName("container-fluid")[0].appendChild(h3);
+            h1.innerHTML = value + " - Tier " + i;
             
-            var points = 20;
-
-            for (var k = 1; k < 4; k++)
+            for (var j = 1; j < 4; j++)
             {
+                var h3 = document.createElement("h3");
+                h3.style = "color: #0066cc";
+                h3.innerHTML = "User " + j;
+                document.getElementsByClassName("container-fluid")[0].appendChild(h3);
+                
                 var label = document.createElement("label");
-                label.innerHTML = "Pfeil " + k + ":";
+                label.innerHTML = "Pfeil:";
+        
+                var select = document.createElement("select");
+                select.name = "arrow1";
+                select.id = "arrow1";
+                select.style = "width: 220px"
+        
+                for (var k = 1; k < 4; k++)
+                {
+                    var option = document.createElement("option");
+                    option.value = ("arrow" + k);
+                    option.innerHTML = k;
+                    select.append(option);
+                }
+    
+                document.getElementsByClassName("container-fluid")[0].appendChild(label);
+                br = document.createElement("br");
+                document.getElementsByClassName("container-fluid")[0].appendChild(br);
+                document.getElementsByClassName("container-fluid")[0].appendChild(select);
+    
+                br = document.createElement("br");
+                document.getElementsByClassName("container-fluid")[0].appendChild(br);
+    
+                label = document.createElement("label");
+                label.innerHTML = "Bereich:";
     
                 var select = document.createElement("select");
                 select.name = "arrow1";
                 select.id = "arrow1";
                 select.style = "width: 220px"
+        
+                var option = document.createElement("option");
+                option.value = "body";
+                option.innerHTML = "Körper";
+                select.append(option);
     
-                for (var l = 1; l < 4; l++)
-                {
-                    var option = document.createElement("option");
-                    option.value = ("arrow" + k);
-                    option.innerHTML = points;
-                    select.append(option);
-                    points -= 2;
-                }
-
+                option = document.createElement("option");
+                option.value = "kill";
+                option.innerHTML = "Kill";
+                select.append(option);
+    
+                option = document.createElement("option");
+                option.value = "innerKill";
+                option.innerHTML = "Inner Kill";
+                select.append(option);
+    
+                br = document.createElement("br");
+                document.getElementsByClassName("container-fluid")[0].appendChild(br);
                 document.getElementsByClassName("container-fluid")[0].appendChild(label);
+                br = document.createElement("br");
+                document.getElementsByClassName("container-fluid")[0].appendChild(br);
                 document.getElementsByClassName("container-fluid")[0].appendChild(select);
+    
+                br = document.createElement("br");
+                document.getElementsByClassName("container-fluid")[0].appendChild(br);
                 br = document.createElement("br");
                 document.getElementsByClassName("container-fluid")[0].appendChild(br);
             }
+    
+            var buttonContinue = document.createElement("button");
+            buttonContinue.id = "buttonContinue";
+            buttonContinue.style.borderRadius = "11px";
+            buttonContinue.innerHTML = "Nächstes 3D-Tier";
+            document.getElementsByClassName("container-fluid")[0].appendChild(buttonContinue);
+    
+            if (document.getElementById("buttonContinue").clicked == true)
+            {
+                i++;
+                buttonWasClicked = true;
+            }
+            else 
+            {
+                buttonWasClicked = false;
+            }
+        }
+        else 
+        {
+            i--;
         }
 
-        var buttonContinue = document.createElement("button");
-        buttonContinue.style.borderRadius = "11px";
-        buttonContinue.innerHTML = "Nächstes 3D-Tier";
-        document.getElementsByClassName("container-fluid")[0].appendChild(buttonContinue);
     }
 
     window.onbeforeunload = function (evt) 
@@ -133,11 +184,69 @@ function showUserData()
 
 function showUsers()
 {
-    let h1 = document.createElement("h1");
+    var h1 = document.createElement("h1");
     h1.style = "color: #0066cc";
-    h1.innerHTML = "Benutzer";
-
+    h1.innerHTML = "User";
     document.getElementsByClassName("container-fluid")[0].appendChild(h1);
+
+    br = document.createElement("br");
+    document.getElementsByClassName("container-fluid")[0].appendChild(br);
+
+    var createParcourButton = document.createElement("button");
+    createParcourButton.style.borderRadius = "11px";
+    createParcourButton.innerHTML = "User hinzufügen";
+    createParcourButton.setAttribute("onclick", "addUser()");
+    document.getElementsByClassName("container-fluid")[0].appendChild(createParcourButton);
+}
+
+function addUser()
+{
+    let form = document.createElement("form");
+
+    let label = document.createElement("label");
+    label.innerHTML = "Name:";
+    form.append(label);
+
+    let br = document.createElement("br");
+    form.append(br);
+
+    let input = document.createElement("input");
+    input.type = "text";
+    input.id = "name";
+    form.append(input);
+
+    br = document.createElement("br");
+    form.append(br);
+
+    label = document.createElement("label");
+    label.innerHTML = "Nickname:";
+    form.append(label);
+
+    br = document.createElement("br");
+    form.append(br);
+
+    input = document.createElement("input");
+    input.type = "text";
+    input.id = "nickname";
+    form.append(input);
+
+    br = document.createElement("br");
+    form.append(br);
+
+    br = document.createElement("br");
+    form.append(br);
+    br = document.createElement("br");
+    form.append(br);
+
+    let button = document.createElement("button");
+    button.innerHTML = "User hinzufügen";
+    button.setAttribute("onclick", "writeToDatabase(); body.reload()");
+    button.style.borderRadius = "11px";
+
+    form.append(button);
+
+    document.getElementsByClassName("container-fluid")[0].innerHTML = "";
+    document.getElementsByClassName("container-fluid")[0].appendChild(form);
 }
 
 //Create editable form on account.html
@@ -271,23 +380,20 @@ function editParcourData()
 
     input = document.createElement("input");
     input.type = "text";
-    input.id = "numberOfAnimals";
+    input.id = "nrofAnimals";
     form.append(input);
 
     br = document.createElement("br");
     form.append(br);
-
-    br = document.createElement("br");
-    form.append(br);
     br = document.createElement("br");
     form.append(br);
 
-    let button = document.createElement("button");
-    button.innerHTML = "Parcour erstellen";
-    button.setAttribute("onclick", "writeToDatabase(); body.reload()");
-    button.style.borderRadius = "11px";
+    let createParcourButton = document.createElement("button");
+    createParcourButton.innerHTML = "Parcour erstellen";
+    createParcourButton.setAttribute("onclick", "writeToDatabase(); body.reload()");
+    createParcourButton.style.borderRadius = "11px";
 
-    form.append(button);
+    form.append(createParcourButton);
 
     document.getElementsByClassName("container-fluid")[0].innerHTML = "";
     document.getElementsByClassName("container-fluid")[0].appendChild(form);
