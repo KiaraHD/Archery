@@ -66,5 +66,100 @@
     </footer>
   </div>
 </div>
+
+<script>
+
+  function showUsers()
+  {
+    var h1 = document.createElement("h1");
+    h1.style = "color: #0066cc";
+    h1.innerHTML = "User";
+    document.getElementsByClassName("container-fluid")[0].appendChild(h1);
+
+    br = document.createElement("br");
+    document.getElementsByClassName("container-fluid")[0].appendChild(br);
+
+    var createParcourButton = document.createElement("button");
+    createParcourButton.style.borderRadius = "11px";
+    createParcourButton.innerHTML = "User hinzufügen";
+    createParcourButton.setAttribute("onclick", "addUser()");
+    document.getElementsByClassName("container-fluid")[0].appendChild(createParcourButton);
+  }
+
+  function addUser()
+  {
+    let form = document.createElement("div");
+
+    let label = document.createElement("label");
+    label.innerHTML = "Vorname:";
+    form.append(label);
+
+    let br = document.createElement("br");
+    form.append(br);
+
+    let input = document.createElement("input");
+    input.type = "text";
+    input.id = "firstName";
+    form.append(input);
+
+
+    br = document.createElement("br");
+    form.append(br);
+
+     label = document.createElement("label");
+    label.innerHTML = "Nachname:";
+    form.append(label);
+
+    br = document.createElement("br");
+    form.append(br);
+
+    input = document.createElement("input");
+    input.type = "text";
+    input.id = "lastName";
+    form.append(input);
+
+    br = document.createElement("br");
+    form.append(br);
+
+    label = document.createElement("label");
+    label.innerHTML = "Nickname:";
+    form.append(label);
+
+    br = document.createElement("br");
+    form.append(br);
+
+    input = document.createElement("input");
+    input.type = "text";
+    input.id = "nickname";
+    form.append(input);
+
+    br = document.createElement("br");
+    form.append(br);
+
+    br = document.createElement("br");
+    form.append(br);
+    br = document.createElement("br");
+    form.append(br);
+
+    let button = document.createElement("button");
+    button.innerHTML = "User hinzufügen";
+    button.setAttribute("onclick", "registerTempUser()");
+    button.style.borderRadius = "11px";
+
+    form.append(button);
+
+    document.getElementsByClassName("container-fluid")[0].innerHTML = "";
+    document.getElementsByClassName("container-fluid")[0].appendChild(form);
+  }
+
+  function registerTempUser() {
+    let username = document.getElementById("nickname").value;
+    let firstName = document.getElementById("firstName").value;
+    let lastName = document.getElementById("lastName").value;
+
+    location.href = `/registerTempUser?username=${username}&firstName=${firstName}&lastName=${lastName}`
+  }
+
+</script>
 </body>
 </html>

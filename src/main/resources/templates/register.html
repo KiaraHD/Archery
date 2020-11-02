@@ -2,52 +2,69 @@
 
 <html lang="en">
 <head>
-  <base href="./">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Archery</title>
-  <link rel="shortcut icon" href="../static/img/darts.png">
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Archery</title>
+    <link rel="shortcut icon" href="../static/img/darts.png">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-  <!-- Main styles for this application-->
-  <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
-  <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
+    <!-- Main styles for this application-->
+    <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
+    <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
 </head>
 
 <body class="c-app flex-row align-items-center">
 <div class="container">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card mx-4">
-        <div class="card-body p-4">
-          <h1>Registrieren</h1>
-          <p class="text-muted">Einen neuen Benutzer registrieren</p>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend"></div>
-            <input class="form-control" type="text" placeholder="Vorname">
-          </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend"></div>
-            <input class="form-control" type="password" placeholder="Passwort">
-          </div>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend"></div>
-            <input class="form-control" type="text" placeholder="Nickname">
-          </div>
-          <button class="btn btn-block btn-success" type="button" style="background-color: green;">Benutzer erstellen</button>
-        </div>
-        <div class="card-footer p-4">
-          <div class="row">
-            <div class="col-12">
-              <button class="btn btn-block btn-google" type="button"><i class="fab fa-google"></i><span> Mit Google anmelden</span></button>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mx-4">
+                <div class="card-body p-4">
+                    <h1>Registrieren</h1>
+                    <p class="text-muted">Einen neuen Benutzer registrieren</p>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend"></div>
+                        <input id="username" class="form-control" type="text" placeholder="Nickname">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend"></div>
+                        <input id="firstName" class="form-control" type="text" placeholder="Vorname">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend"></div>
+                        <input id="lastName" class="form-control" type="text" placeholder="Nachname">
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend"></div>
+                        <input id="password" class="form-control" type="password" placeholder="Passwort">
+                    </div>
+                    <button onclick="registerUser()" class="btn btn-block btn-success" type="button" style="background-color: green;">Benutzer
+                        erstellen
+                    </button>
+                </div>
+                <div class="card-footer p-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn btn-block btn-google" type="button"><i class="fab fa-google"></i><span> Mit Google anmelden</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
+<script>
+function registerUser() {
+    let firstName = document.getElementById("firstName").value;
+    let lastName = document.getElementById("lastName").value;
+    let password = document.getElementById("password").value; // very safe. yes yes.
+    let username = document.getElementById("username").value;
+
+    location.href = `/registerUser?firstName=${firstName}&lastName=${lastName}&password=${password}&username=${username}`;
+}
+</script>
 </body>
 </html>

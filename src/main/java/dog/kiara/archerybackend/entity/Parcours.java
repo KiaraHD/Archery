@@ -15,26 +15,24 @@ public class Parcours {
 
     @Id
     @GeneratedValue(generator = "increment", strategy = GenerationType.SEQUENCE)
-    @GenericGenerator(strategy = "increment",name = "increment")
+    @GenericGenerator(strategy = "increment", name = "increment")
     private Integer parcourId;
     @OneToOne
     private PlayedGame game;
     private String parcourName;
     private String location;
-    @OneToMany
-    @Cascade({CascadeType.ALL})
-    private List<Targets> targets;
+    private int number;
     @OneToOne
 //    @Cascade({CascadeType.ALL})
     private AppUser createdBy;
 
 
-    public Parcours(String name, String location,AppUser createdBy ,List<Targets> targetList) {
+    public Parcours(String name, String location, int number, AppUser createdBy) {
 
-    this.parcourName = name;
-    this.location = location;
-    this.createdBy = createdBy;
-    this.targets = targetList;
+        this.parcourName = name;
+        this.location = location;
+        this.createdBy = createdBy;
+        this.number = number;
     }
 
     public Parcours() {

@@ -22,6 +22,7 @@ public interface AppUserRepository extends JpaRepository<AppUser, String> {
     @Query(value = "select * from app_user a where created_by  = :loggedinUser", nativeQuery = true)
     List<AppUser> findUserByCreator(int loggedinUser);
 
+    boolean existsByNickname(String nickname);
 
 }
 

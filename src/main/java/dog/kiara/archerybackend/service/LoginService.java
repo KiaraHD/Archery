@@ -24,7 +24,7 @@ public class LoginService {
 
         AppUser foundUser = archeryService.searchUserByNickname(username);
 
-        if (encodePassword(password).equals(foundUser.getPassword())) {
+        if (foundUser != null && encodePassword(password).equals(foundUser.getPassword())) {
 
             return foundUser;
         }

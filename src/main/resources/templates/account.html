@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">>
 <head>
   <base href="./">
   <meta charset="utf-8">
@@ -39,9 +39,9 @@
     <img src="/img/Logo_VGSP_transparent.png" width="120" height="50" onclick="location.href='/'">
 
     <ul class="c-header-nav ml-auto mr-1">
-      <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-        Benutzername<div class="c-avatar"><i class="fas fa-user"></i></div>
+      <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" th:text="${username}">
       </a>
+        <div class="c-avatar"><i class="fas fa-user"></i></div>
         <div class="dropdown-menu dropdown-menu-right pt-2">
           <a class="dropdown-item" href="/">
             <i class="fas fa-home"></i> Start</a>

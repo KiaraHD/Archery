@@ -1,145 +1,222 @@
 <!DOCTYPE html>
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org">>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <base href="./">
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Archery</title>
-  <link rel="shortcut icon" href="/img/darts.png">
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Archery</title>
+    <link rel="shortcut icon" href="/img/darts.png">
 
-  <!--CSS-->
+    <!--CSS-->
 
-  <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
-  <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
-  <script src="/js/all.js"></script>
-  <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
+    <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
+    <script src="/js/all.js"></script>
+    <link rel="stylesheet" href="/css/index.css">
 
-  <!--Icons-->
+    <!--Icons-->
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body class="c-app" id="body" onload="createParcourList()">
 <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
-  <ul class="c-sidebar-nav">
-    <li class="c-sidebar-nav-title">Optionen</li>
-    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/">
-      <i style="margin-right: 10px;" class="fas fa-home"></i>Start</a></li>
-    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/parcours">
-      <i style="margin-right: 10px;" class="fas fa-bullseye"></i>Parcoure</a></li>
-    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="start.html">
-      <i style="margin-right: 10px;" class="fas fa-sign-out-alt"></i>Abmelden</a></li>
-  </ul>
+    <ul class="c-sidebar-nav">
+        <li class="c-sidebar-nav-title">Optionen</li>
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/">
+            <i style="margin-right: 10px;" class="fas fa-home"></i>Start</a></li>
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/parcours">
+            <i style="margin-right: 10px;" class="fas fa-bullseye"></i>Parcoure</a></li>
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="start.html">
+            <i style="margin-right: 10px;" class="fas fa-sign-out-alt"></i>Abmelden</a></li>
+    </ul>
 </div>
 <div class="c-wrapper c-fixed-components">
-  <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
+    <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
 
-    <img src="/img/Logo_VGSP_transparent.png" width="120" height="50" onclick="location.href='index.html'">
+        <img src="/img/Logo_VGSP_transparent.png" width="120" height="50" onclick="location.href='index.html'">
 
-    <ul class="c-header-nav ml-auto mr-1">
-      <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-        Benutzername<div class="c-avatar"><i class="fas fa-user"></i></div>
-      </a>
-        <div class="dropdown-menu dropdown-menu-right pt-2">
-          <a class="dropdown-item" href="index.html">
-            <i class="fas fa-home"></i> Start</a>
-          <a class="dropdown-item" href="account.html">
-            <i class="fas fa-user-alt"></i> Konto</a>
-          <a class="dropdown-item" href="users.html">
-            <i class="fas fa-users"></i> Users</a>
-          <a class="dropdown-item" href="/parcours">
-            <i class="fas fa-bullseye"></i> Parcoure</a>
-          <a class="dropdown-item" href="start.html">
-            <i class="fas fa-sign-out-alt"></i> Abmelden</a>
-        </div>
-      </li>
-    </ul>
-  </header>
-  <div class="c-body" style="overflow: scroll;">
-    <main class="c-main">
-      <div class="container-fluid"></div>
-    </main>
-    <footer class="c-footer">
-      <div><a href="impressum.html">Archery</a> &copy; 2020 VGSP</div>
-    </footer>
-  </div>
+        <ul class="c-header-nav ml-auto mr-1">
+            <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#"
+                                                      role="button" aria-haspopup="true" aria-expanded="false">
+                Benutzername
+                <div class="c-avatar"><i class="fas fa-user"></i></div>
+            </a>
+                <div class="dropdown-menu dropdown-menu-right pt-2">
+                    <a class="dropdown-item" href="index.html">
+                        <i class="fas fa-home"></i> Start</a>
+                    <a class="dropdown-item" href="account.html">
+                        <i class="fas fa-user-alt"></i> Konto</a>
+                    <a class="dropdown-item" href="users.html">
+                        <i class="fas fa-users"></i> Users</a>
+                    <a class="dropdown-item" href="/parcours">
+                        <i class="fas fa-bullseye"></i> Parcoure</a>
+                    <a class="dropdown-item" href="start.html">
+                        <i class="fas fa-sign-out-alt"></i> Abmelden</a>
+                </div>
+            </li>
+        </ul>
+    </header>
+    <div class="c-body" style="overflow: scroll;">
+        <main class="c-main">
+            <div class="container-fluid"></div>
+        </main>
+        <footer class="c-footer">
+            <div><a href="impressum.html">Archery</a> &copy; 2020 VGSP</div>
+        </footer>
+    </div>
 
 </div>
 </div>
 
 
 <script th:inline="javascript">
-  //Save changes in database
-  function writeToDatabase()
-  {
-    let nameInput = document.getElementById("name");
-    let placeInput = document.getElementById("place");
-    let nrOfAnimals = document.getElementById("numberOfAnimals");
-
-    let service = [[${service}]]
-    service.createParcour(nameInput, placeInput, [[$]])
-  }
-
-  //Parcour-Stuff
-  function createParcourList()
-  {
-    let h1 = document.createElement("h1");
-    h1.style = "color: #0066cc";
-    h1.innerHTML = "Parcoure";
-
-    let table = document.createElement("table");
-    table.style = "width: 100%";
-
-    let tr = document.createElement("tr");
-
-    let th1 = document.createElement("th");
-    th1.innerHTML = "Name";
-
-    let th2 = document.createElement("th");
-    th2.innerHTML = "Ort";
-
-    let th3 = document.createElement("th");
-    th3.innerHTML = "Anzahl der 3D-Tiere";
-
-    tr.append(th1);
-    tr.append(th2);
-    tr.append(th3);
-
-    table.append(tr);
-
-    //TODO
-
-    for (let i = 0; i < parcourList.length; i++)
-    {
-      let tr = document.createElement("tr");
-
-      for (let j = 0; j < parcourList[i].length; j++)
-      {
-        let td = document.createElement("td");
-        td.innerHTML = parcourList[i][j];
-
-        tr.append(td);
-      }
-
-      table.append(tr);
+    //Save changes in database
+    function writeToDatabase() {
+        let nameInput = document.getElementById("name").value;
+        let placeInput = document.getElementById("place").value;
+        let nrOfAnimals = document.getElementById("numberOfAnimals").value;
+        console.log(nameInput);
+        console.log(placeInput);
+        var href = `/addparcour?name=${nameInput}&location=${placeInput}&number=${nrOfAnimals}`;
+        console.log(location.href);
+        location.href = href;
     }
 
-    let button = document.createElement("button");
-    button.innerHTML = "Neuen Parcour erstellen";
-    button.setAttribute("onclick", "editParcourData()");
-    button.style.borderRadius = "11px";
+    //Parcour-Stuff
+    function createParcourList() {
+        let h1 = document.createElement("h1");
+        h1.style = "color: #0066cc";
+        h1.innerHTML = "Parcoure";
 
-    br = document.createElement("br");
+        let table = document.createElement("table");
+        table.style = "width: 100%";
 
-    document.getElementsByClassName("container-fluid")[0].appendChild(h1);
-    document.getElementsByClassName("container-fluid")[0].appendChild(br);
-    document.getElementsByClassName("container-fluid")[0].appendChild(table);
-    br = document.createElement("br");
-    document.getElementsByClassName("container-fluid")[0].appendChild(br);
-    document.getElementsByClassName("container-fluid")[0].appendChild(button);
-  }
+        let tr = document.createElement("tr");
+
+        let th1 = document.createElement("th");
+        th1.innerHTML = "Name";
+
+        let th2 = document.createElement("th");
+        th2.innerHTML = "Ort";
+
+        let th3 = document.createElement("th");
+        th3.innerHTML = "Anzahl der 3D-Tiere";
+
+        tr.append(th1);
+        tr.append(th2);
+        tr.append(th3);
+
+        table.append(tr);
+
+        //TODO
+
+        let parcours = [[${parcours}]];
+        for (let parcour of parcours) {
+            let tr = document.createElement("tr");
+
+            let td = document.createElement("td");
+            td.innerHTML = parcour.parcourName;
+
+            tr.append(td);
+
+
+            td = document.createElement("td");
+            td.innerHTML = parcour.location;
+
+            tr.append(td);
+
+
+            td = document.createElement("td");
+            td.innerHTML = parcour.number;
+
+            tr.append(td);
+
+            table.append(tr);
+        }
+
+        let button = document.createElement("button");
+        button.innerHTML = "Neuen Parcour erstellen";
+        button.setAttribute("onclick", "editParcourData()");
+        button.style.borderRadius = "11px";
+
+        br = document.createElement("br");
+
+        document.getElementsByClassName("container-fluid")[0].appendChild(h1);
+        document.getElementsByClassName("container-fluid")[0].appendChild(br);
+        document.getElementsByClassName("container-fluid")[0].appendChild(table);
+        br = document.createElement("br");
+        document.getElementsByClassName("container-fluid")[0].appendChild(br);
+        document.getElementsByClassName("container-fluid")[0].appendChild(button);
+    }
+
+
+    function editParcourData() {
+        let form = document.createElement("div");
+
+        let label = document.createElement("label");
+        label.innerHTML = "Name:";
+        form.append(label);
+
+        let br = document.createElement("br");
+        form.append(br);
+
+        let input = document.createElement("input");
+        input.type = "text";
+        input.id = "name";
+        form.append(input);
+
+        br = document.createElement("br");
+        form.append(br);
+
+        label = document.createElement("label");
+        label.innerHTML = "Ort:";
+        form.append(label);
+
+        br = document.createElement("br");
+        form.append(br);
+
+        input = document.createElement("input");
+        input.type = "text";
+        input.id = "place";
+        form.append(input);
+
+        br = document.createElement("br");
+        form.append(br);
+
+        label = document.createElement("label");
+        label.innerHTML = "Anzahl der 3D-Tiere:";
+        form.append(label);
+
+        br = document.createElement("br");
+        form.append(br);
+
+        input = document.createElement("input");
+        input.type = "number";
+        input.id = "numberOfAnimals";
+        form.append(input);
+
+        br = document.createElement("br");
+        form.append(br);
+
+        br = document.createElement("br");
+        form.append(br);
+        br = document.createElement("br");
+        form.append(br);
+
+        let button = document.createElement("button");
+        button.innerHTML = "Parcour erstellen";
+        button.setAttribute("onclick", "writeToDatabase();");
+        //button.setAttribute("type", "submit");
+        button.style.borderRadius = "11px";
+
+        form.append(button);
+
+        document.getElementsByClassName("container-fluid")[0].innerHTML = "";
+        document.getElementsByClassName("container-fluid")[0].appendChild(form);
+    }
 </script>
 
 </body>
