@@ -10,14 +10,11 @@ function onclickStartEvent()
 
     for (let i = 0; i < users.length; i++)
     {
-        if (users[i].id.includes("user"))
-        {
-            let input = document.getElementById(users[i].id);
+        let input = document.getElementById(users[i].id);
 
-            if (input.checked == true)
-            {
-                selectedUsers.push(input);
-            }
+        if (input.checked == true)
+        {
+            selectedUsers.push(input);
         }
     }
 
@@ -27,110 +24,11 @@ function onclickStartEvent()
     
     let h1 = document.createElement("h1");
     h1.style = "color: #0066cc";
-    h1.innerHTML = value;
-    
-    document.getElementsByClassName("container-fluid")[0].innerHTML = "";
-    document.getElementsByClassName("container-fluid")[0].appendChild(h1);
-    br = document.createElement("br");
-    document.getElementsByClassName("container-fluid")[0].appendChild(br);
 
-    var buttonWasClicked = true;
+    //Should be replaced with actual Parcour number of animals plz
+    let nrofAnimals = 10;
 
-    for (var i = 1; i < 11; i++)
-    {
-        if (buttonWasClicked)
-        {
-            h1.innerHTML = value + " - Tier " + i;
-            
-            for (var j = 1; j < 4; j++)
-            {
-                var h3 = document.createElement("h3");
-                h3.style = "color: #0066cc";
-                h3.innerHTML = "User " + j;
-                document.getElementsByClassName("container-fluid")[0].appendChild(h3);
-                
-                var label = document.createElement("label");
-                label.innerHTML = "Pfeil:";
-        
-                var select = document.createElement("select");
-                select.name = "arrow1";
-                select.id = "arrow1";
-                select.style = "width: 220px"
-        
-                for (var k = 1; k < 4; k++)
-                {
-                    var option = document.createElement("option");
-                    option.value = ("arrow" + k);
-                    option.innerHTML = k;
-                    select.append(option);
-                }
-    
-                document.getElementsByClassName("container-fluid")[0].appendChild(label);
-                br = document.createElement("br");
-                document.getElementsByClassName("container-fluid")[0].appendChild(br);
-                document.getElementsByClassName("container-fluid")[0].appendChild(select);
-    
-                br = document.createElement("br");
-                document.getElementsByClassName("container-fluid")[0].appendChild(br);
-    
-                label = document.createElement("label");
-                label.innerHTML = "Bereich:";
-    
-                var select = document.createElement("select");
-                select.name = "arrow1";
-                select.id = "arrow1";
-                select.style = "width: 220px"
-        
-                var option = document.createElement("option");
-                option.value = "body";
-                option.innerHTML = "Körper";
-                select.append(option);
-    
-                option = document.createElement("option");
-                option.value = "kill";
-                option.innerHTML = "Kill";
-                select.append(option);
-    
-                option = document.createElement("option");
-                option.value = "innerKill";
-                option.innerHTML = "Inner Kill";
-                select.append(option);
-    
-                br = document.createElement("br");
-                document.getElementsByClassName("container-fluid")[0].appendChild(br);
-                document.getElementsByClassName("container-fluid")[0].appendChild(label);
-                br = document.createElement("br");
-                document.getElementsByClassName("container-fluid")[0].appendChild(br);
-                document.getElementsByClassName("container-fluid")[0].appendChild(select);
-    
-                br = document.createElement("br");
-                document.getElementsByClassName("container-fluid")[0].appendChild(br);
-                br = document.createElement("br");
-                document.getElementsByClassName("container-fluid")[0].appendChild(br);
-            }
-    
-            var buttonContinue = document.createElement("button");
-            buttonContinue.id = "buttonContinue";
-            buttonContinue.style.borderRadius = "11px";
-            buttonContinue.innerHTML = "Nächstes 3D-Tier";
-            document.getElementsByClassName("container-fluid")[0].appendChild(buttonContinue);
-    
-            if (document.getElementById("buttonContinue").clicked == true)
-            {
-                i++;
-                buttonWasClicked = true;
-            }
-            else 
-            {
-                buttonWasClicked = false;
-            }
-        }
-        else 
-        {
-            i--;
-        }
-
-    }
+    nextAnimal(1, h1, value, selectedUsers, nrofAnimals, "Nächstes 3D-Tier");
 
     window.onbeforeunload = function (evt) 
     {
@@ -145,6 +43,136 @@ function onclickStartEvent()
         }
         return message;
       }
+}
+
+function nextAnimal(i, h1, value, selectedUsers, nrofAnimals, buttonText)
+{
+    document.getElementsByClassName("container-fluid")[0].innerHTML = "";
+
+    h1.innerHTML = value + " - Tier " + i;
+    document.getElementsByClassName("container-fluid")[0].appendChild(h1);
+    br = document.createElement("br");
+    document.getElementsByClassName("container-fluid")[0].appendChild(br);
+            
+    for (var j = 0; j < selectedUsers.length; j++)
+    {
+        var h3 = document.createElement("h3");
+        h3.style = "color: #0066cc";
+        h3.innerHTML = selectedUsers[j].id;
+        document.getElementsByClassName("container-fluid")[0].appendChild(h3);
+            
+        var label = document.createElement("label");
+        label.innerHTML = "Pfeil:";
+    
+        var select = document.createElement("select");
+        select.name = "arrow1";
+        select.id = "arrow1";
+        select.style = "width: 220px"
+    
+        for (var k = 1; k < 4; k++)
+        {
+            var option = document.createElement("option");
+            option.value = ("arrow" + k);
+            option.innerHTML = k;
+            select.append(option);
+        }
+
+        document.getElementsByClassName("container-fluid")[0].appendChild(label);
+        br = document.createElement("br");
+        document.getElementsByClassName("container-fluid")[0].appendChild(br);
+        document.getElementsByClassName("container-fluid")[0].appendChild(select);
+
+        br = document.createElement("br");
+        document.getElementsByClassName("container-fluid")[0].appendChild(br);
+
+        label = document.createElement("label");
+        label.innerHTML = "Bereich:";
+
+        var select = document.createElement("select");
+        select.name = "arrow1";
+        select.id = "arrow1";
+        select.style = "width: 220px"
+    
+        var option = document.createElement("option");
+        option.value = "body";
+        option.innerHTML = "Körper";
+        select.append(option);
+
+        option = document.createElement("option");
+        option.value = "kill";
+        option.innerHTML = "Kill";
+        select.append(option);
+
+        option = document.createElement("option");
+        option.value = "innerKill";
+        option.innerHTML = "Inner Kill";
+        select.append(option);
+
+        br = document.createElement("br");
+        document.getElementsByClassName("container-fluid")[0].appendChild(br);
+        document.getElementsByClassName("container-fluid")[0].appendChild(label);
+        br = document.createElement("br");
+        document.getElementsByClassName("container-fluid")[0].appendChild(br);
+        document.getElementsByClassName("container-fluid")[0].appendChild(select);
+
+        br = document.createElement("br");
+        document.getElementsByClassName("container-fluid")[0].appendChild(br);
+        br = document.createElement("br");
+        document.getElementsByClassName("container-fluid")[0].appendChild(br);
+    }
+
+    if (buttonText == "Nächstes 3D-Tier")
+    {
+        var buttonContinue = document.createElement("button");
+        buttonContinue.id = "buttonContinue";
+        buttonContinue.style.borderRadius = "11px";
+        buttonContinue.innerHTML = buttonText;
+        buttonContinue.addEventListener("click", function()
+        {
+            if (i + 1 < nrofAnimals)
+            {
+                nextAnimal(i+1, h1, value, selectedUsers, nrofAnimals, buttonText);
+            }
+            else
+            {
+                nextAnimal(i+1, h1, value, selectedUsers, nrofAnimals, "Event beenden");
+            }
+        });
+        document.getElementsByClassName("container-fluid")[0].appendChild(buttonContinue);
+    }
+    else
+    {
+        var buttonFinishEvent = document.createElement("button");
+        buttonFinishEvent.id = "buttonFinishEvent";
+        buttonFinishEvent.style.borderRadius = "11px";
+        buttonFinishEvent.innerHTML = buttonText;
+        buttonFinishEvent.addEventListener("click", function()
+        {
+            finishEvent();
+        });
+        document.getElementsByClassName("container-fluid")[0].appendChild(buttonFinishEvent);
+    }
+
+}
+
+function finishEvent()
+{
+    var mainDiv = document.createElement("div");
+    mainDiv.id = "overlay";
+
+    var childDiv = document.createElement("div");
+    childDiv.id = "text";
+    childDiv.innerHTML = "Ergebnisse";
+    
+    var closeButton = document.createElement("button");
+    closeButton.id = "button";
+    closeButton.style.borderRadius = "11px";
+    closeButton.innerHTML = "Zurück zum Start";
+    closeButton.setAttribute("onclick", "window.location.reload()");
+    mainDiv.append(childDiv);
+    mainDiv.append(closeButton);
+
+    document.getElementsByClassName("container-fluid")[0].appendChild(mainDiv);
 }
 
 //Show data on account.html
