@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
@@ -43,6 +44,7 @@ public class ArcheryController {
             AppUser user = (AppUser) model.get("user");
             if (user != null) {
                 List<AppUser> usersByCreatorId = archeryService.getUsersByCreatorId(user.getUserId());
+                usersByCreatorId.addAll(archeryService.getAllRegisteredUser().stream().filter(appUser -> !appUser.getNickname().equals(user.getNickname())).collect(Collectors.toList()));
                 model.put("list", usersByCreatorId == null ? Collections.EMPTY_LIST : usersByCreatorId);
                 List<Parcours> parcoursByUser = archeryService.getParcoursByUser(user.getUserId());
                 model.put("parcours", parcoursByUser == null ? Collections.EMPTY_LIST : parcoursByUser);
@@ -68,8 +70,6 @@ public class ArcheryController {
 
     @GetMapping("/addparcour")
     public RedirectView login(@RequestParam String name, @RequestParam String location, @RequestParam int number, Map<String, Object> model, HttpServletRequest request) {
-        System.out.println("name = " + name);
-        System.out.println("location = " + location);
         AppUser appUserFromCookie = getAppUserFromCookie(model, request.getSession());
         if (appUserFromCookie != null) {
             archeryService.createParcour(name, location, number, appUserFromCookie);
@@ -100,7 +100,6 @@ public class ArcheryController {
     @GetMapping("/registerUser")
     public RedirectView registerUser(@RequestParam String firstName, @RequestParam String lastName, @RequestParam String password, @RequestParam String username, Map<String, Object> model, HttpServletRequest request) {
         boolean b = archeryService.userExists(username);
-        System.out.println("b = " + b);
         if (!b) {
             archeryService.createUser(firstName, lastName, username, password);
             return new RedirectView("/login?username=" + username + "&password=" + password);
@@ -123,8 +122,15 @@ public class ArcheryController {
     @SneakyThrows
     @GetMapping("/users")
     public String users(Map<String, Object> model, HttpServletRequest request) {
-        // getLogin();
-        return getLogin(model, request, "users");
+        String users = getLogin(model, request, "users");
+        if (model.containsKey("user")) {
+            AppUser user = (AppUser) model.get("user");
+            if (user != null) {
+                List<AppUser> usersByCreatorId = archeryService.getUsersByCreatorId(user.getUserId());
+                model.put("list", usersByCreatorId == null ? Collections.EMPTY_LIST : usersByCreatorId);
+            }
+        }
+        return users;
     }
 
     @SneakyThrows
@@ -178,6 +184,11 @@ public class ArcheryController {
         }
 
         return "start";
+    }
+
+    @GetMapping("/impressum")
+    public String impressum(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) {
+        return getLogin(model, request, "impressum");
     }
 
     private AppUser getAppUserFromCookie(Map<String, Object> model, HttpSession session) {

@@ -29,6 +29,8 @@
             <i style="margin-right: 10px;" class="fas fa-home"></i>Start</a></li>
         <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/parcours">
             <i style="margin-right: 10px;" class="fas fa-bullseye"></i>Parcoure</a></li>
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/users">
+            <i style="margin-right: 10px;" class="fas fa-users"></i>Users</a></li>
         <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/logout">
             <i style="margin-right: 10px;" class="fas fa-sign-out-alt"></i>Abmelden</a></li>
     </ul>
@@ -40,20 +42,17 @@
 
         <ul class="c-header-nav ml-auto mr-1">
             <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#"
-                                                      role="button" aria-haspopup="true" aria-expanded="false">
-                Benutzername
+                                                      role="button" aria-haspopup="true" aria-expanded="false">[[${user.nickname}]]
                 <div class="c-avatar"><!--img class="c-avatar-img" src="assets/img/avatars/1.jpg"--><i
                         class="fas fa-user"></i></div>
             </a>
                 <div class="dropdown-menu dropdown-menu-right pt-2">
                     <a class="dropdown-item" href="/">
                         <i class="fas fa-home"></i> Start</a>
-                    <a class="dropdown-item" href="/account">
-                        <i class="fas fa-user-alt"></i> Konto</a>
-                    <a class="dropdown-item" href="users">
-                        <i class="fas fa-users"></i> Users</a>
                     <a class="dropdown-item" href="/parcours">
                         <i class="fas fa-bullseye"></i> Parcoure</a>
+                    <a class="dropdown-item" href="/users">
+                        <i class="fas fa-users"></i> Users</a>
                     <a class="dropdown-item" href="/logout">
                         <i class="fas fa-sign-out-alt"></i> Abmelden</a>
                 </div>
@@ -67,13 +66,14 @@
         </main>
 
         <footer class="c-footer">
-            <div><a href="impressum.html">Archery</a> &copy; 2020 VGSP</div>
+            <div><a href="/impressum">Archery</a> &copy; 2020 VGSP</div>
         </footer>
 
     </div>
 </div>
 
 <script th:inline="javascript">
+
     //List all users on index.html
     function createUserForm() {
         let form = document.createElement("form");
@@ -94,8 +94,9 @@
         for (let listElement of list) {
             let checkboxButton = document.createElement("input");
             checkboxButton.type = "checkbox";
-            checkboxButton.id = (idName + index);
+            checkboxButton.id = `user${index}`;
             checkboxButton.value = (idName + index);
+            checkboxButton.setAttribute('name', listElement.nickname);
             form.append(checkboxButton);
             let label = document.createElement("label");
             label.innerHTML = (' ' + listElement.nickname);
@@ -129,11 +130,42 @@
             let option = document.createElement("option");
             option.value = (parcour.parcourId);
             option.innerHTML = (parcour.parcourName + " (" + parcour.location + ")");
+            let value = parcour.number;
+            option.setAttribute("parcourNumber", value);
 
             select.append(option);
         }
 
-        document.getElementsByClassName("container-fluid")[0].appendChild(select);
+        form.append(select);
+
+
+        br = document.createElement("br");
+        form.append(br);
+
+        h2 = document.createElement("h2");
+        h2.style = "color: #0066cc";
+        h2.innerHTML = "Pfeilwertung auswählen:";
+        form.append(h2);
+
+
+        select = document.createElement("select");
+        select.name = "number";
+        select.id = "number";
+        select.style = "width: 220px"
+
+        let option = document.createElement("option");
+        option.value = "2";
+        option.innerHTML = "2";
+
+        select.append(option);
+
+        option = document.createElement("option");
+        option.value = "3";
+        option.innerHTML = "3";
+
+        select.append(option);
+
+        form.append(select);
 
         br = document.createElement("br");
         document.getElementsByClassName("container-fluid")[0].appendChild(br);
@@ -147,6 +179,277 @@
 
         document.getElementsByClassName("container-fluid")[0].appendChild(button);
     }
+
+
+    function onclickStartEvent() {
+        let users = document.querySelectorAll('input');
+
+        //users.push([[${user}]])
+
+        let realUsers = [];
+
+        realUsers.push([[${user}]])
+
+        let selectedUsers = [];
+
+        console.log(realUsers);
+
+        for (let i = 0; i < users.length; i++) {
+            let input = document.getElementById(users[i].id);
+
+            if (input.checked == true) {
+                selectedUsers.push(input);
+            }
+        }
+
+        for (let user of selectedUsers) {
+            realUsers.push({
+                nickname: user.name
+            })
+        }
+
+
+        let selectParcour = document.getElementById("parcours");
+
+        let value = selectParcour.options[selectParcour.selectedIndex].innerHTML;
+
+        let h1 = document.createElement("h1");
+        h1.style = "color: #0066cc";
+
+        console.log(selectParcour);
+
+        //Should be replaced with actual Parcour number of animals plz
+        var attribute = selectParcour.options[selectParcour.selectedIndex].getAttribute("parcourNumber");
+        let nrofAnimals = parseInt(attribute);
+
+        nextAnimal(1, h1, value, realUsers, nrofAnimals, "Nächstes 3D-Tier");
+
+        window.onbeforeunload = function (evt) {
+            let message = 'Are you sure you want to leave?';
+            if (typeof evt == 'undefined') {
+                evt = window.event;
+            }
+            if (evt) {
+                evt.returnValue = message;
+            }
+            return message;
+        }
+    }
+
+    /*Area:
+
+    1 - body
+    2 - Kill
+    3 - inner kill
+
+    */
+    function calculateScore(numberArrow, numberShots, area) {
+        if (area === 0) return 0;
+        if (numberArrow === 2) {
+            if (area === 3) {
+                return 10;
+            } else if (area === 2) {
+                return 8;
+            } else if (area === 1) {
+                return 5;
+            }
+        } else if (numberArrow === 3) {
+            if (numberShots === 1) {
+                if (area === 1) {
+                    return 16;
+                } else if (area === 2) {
+                    return 18;
+                } else if (area === 3) {
+                    return 20;
+                }
+            } else if (numberShots === 2) {
+                if (area === 1) {
+                    return 10;
+                } else if (area === 2) {
+                    return 12;
+                } else if (area === 3) {
+                    return 14;
+                }
+
+            } else if (numberShots === 3) {
+                if (area === 1) {
+                    return 4;
+                } else if (area === 2) {
+                    return 6;
+                } else if (area === 3) {
+                    return 8;
+                }
+            }
+        }
+        return -1;
+    }
+
+    let arrows = 0;
+    let scores = [];
+
+    function nextAnimal(i, h1, value, selectedUsers, nrofAnimals, buttonText) {
+
+        if (document.getElementById("number") != null) {
+            arrows = document.getElementById("number").value;
+        }
+
+        let object = {};
+
+        document.getElementsByClassName("container-fluid")[0].innerHTML = "";
+
+        h1.innerHTML = value + " - Tier " + i;
+        document.getElementsByClassName("container-fluid")[0].appendChild(h1);
+        br = document.createElement("br");
+        document.getElementsByClassName("container-fluid")[0].appendChild(br);
+
+        for (var j = 0; j < selectedUsers.length; j++) {
+            var h3 = document.createElement("h3");
+            h3.style = "color: #0066cc";
+            h3.innerHTML = selectedUsers[j].nickname;
+            document.getElementsByClassName("container-fluid")[0].appendChild(h3);
+
+            var label = document.createElement("label");
+            label.innerHTML = "Pfeil:";
+
+            var select = document.createElement("select");
+            select.name = "arrow1";
+            select.id = selectedUsers[j].nickname;
+            select.style = "width: 220px"
+
+            for (var k = 1; k < parseInt(arrows) + 1; k++) {
+                var option = document.createElement("option");
+                option.value = ("arrow" + k);
+                option.innerHTML = k;
+                select.append(option);
+            }
+
+            document.getElementsByClassName("container-fluid")[0].appendChild(label);
+            br = document.createElement("br");
+            document.getElementsByClassName("container-fluid")[0].appendChild(br);
+            document.getElementsByClassName("container-fluid")[0].appendChild(select);
+
+            br = document.createElement("br");
+            document.getElementsByClassName("container-fluid")[0].appendChild(br);
+
+            label = document.createElement("label");
+            label.innerHTML = "Bereich:";
+
+            var select = document.createElement("select");
+            select.name = selectedUsers[j].nickname;
+            select.id = "arrow1";
+            select.setAttribute(selectedUsers[j].nickname, '');
+            select.style = "width: 220px"
+
+            var option = document.createElement("option");
+            option.value = "miss";
+            option.innerHTML = "Nicht getroffen";
+            select.append(option);
+
+            var option = document.createElement("option");
+            option.value = "body";
+            option.innerHTML = "Körper";
+            select.append(option);
+
+            option = document.createElement("option");
+            option.value = "kill";
+            option.innerHTML = "Kill";
+            select.append(option);
+
+            option = document.createElement("option");
+            option.value = "innerKill";
+            option.innerHTML = "Inner Kill";
+            select.append(option);
+
+            br = document.createElement("br");
+            document.getElementsByClassName("container-fluid")[0].appendChild(br);
+            document.getElementsByClassName("container-fluid")[0].appendChild(label);
+            br = document.createElement("br");
+            document.getElementsByClassName("container-fluid")[0].appendChild(br);
+            document.getElementsByClassName("container-fluid")[0].appendChild(select);
+
+            br = document.createElement("br");
+            document.getElementsByClassName("container-fluid")[0].appendChild(br);
+            br = document.createElement("br");
+            document.getElementsByClassName("container-fluid")[0].appendChild(br);
+        }
+
+        if (buttonText == "Nächstes 3D-Tier") {
+            var buttonContinue = document.createElement("button");
+            buttonContinue.id = "buttonContinue";
+            buttonContinue.style.borderRadius = "11px";
+            buttonContinue.innerHTML = buttonText;
+            buttonContinue.addEventListener("click", function () {
+                for (let user of selectedUsers) {
+                    let element = document.querySelector('#' + user.nickname);
+                    let currentArrow = element.options[element.selectedIndex].innerHTML;
+                    let drop = document.querySelector(`select[${user.nickname}]`);
+                    let area = drop.selectedIndex;
+                    object[user.nickname] = calculateScore(parseInt(arrows), parseInt(currentArrow), area);
+                }
+                scores.push(object);
+                console.log(scores);
+                if (i + 1 < nrofAnimals) {
+                    nextAnimal(i + 1, h1, value, selectedUsers, nrofAnimals, buttonText);
+                } else {
+                    nextAnimal(i + 1, h1, value, selectedUsers, nrofAnimals, "Event beenden");
+                }
+            });
+            document.getElementsByClassName("container-fluid")[0].appendChild(buttonContinue);
+        } else {
+            var buttonFinishEvent = document.createElement("button");
+            buttonFinishEvent.id = "buttonFinishEvent";
+            buttonFinishEvent.style.borderRadius = "11px";
+            buttonFinishEvent.innerHTML = buttonText;
+            buttonFinishEvent.addEventListener("click", function () {
+                for (let user of selectedUsers) {
+                    let element = document.querySelector('#' + user.nickname);
+                    let currentArrow = element.options[element.selectedIndex].innerHTML;
+                    let drop = document.querySelector(`select[${user.nickname}]`);
+                    let area = drop.selectedIndex;
+                    object[user.nickname] = calculateScore(parseInt(arrows), parseInt(currentArrow), area);
+                }
+                scores.push(object);
+                console.log(scores);
+                finishEvent(selectedUsers);
+            });
+            document.getElementsByClassName("container-fluid")[0].appendChild(buttonFinishEvent);
+        }
+
+    }
+
+    function finishEvent(selectedUsers) {
+
+        console.log(selectedUsers);
+        var mainDiv = document.createElement("div");
+        mainDiv.id = "overlay";
+
+        var childDiv = document.createElement("div");
+        childDiv.id = "text";
+        childDiv.innerHTML = "Ergebnisse:";
+
+        for (let selectedUser of selectedUsers) {
+            let amount = 0;
+            for (let score of scores) {
+                amount += score[selectedUser.nickname];
+            }
+            var h4 = document.createElement('h4');
+            h4.innerHTML = selectedUser.nickname + ": Ø " + Number(amount / scores.length).toFixed(2);
+            childDiv.appendChild(h4);
+        }
+
+
+        var closeButton = document.createElement("button");
+        closeButton.id = "button";
+        closeButton.style.borderRadius = "11px";
+        closeButton.innerHTML = "Zurück zum Start";
+        closeButton.style.marginTop = (selectedUsers.length * 15)+'px';
+        closeButton.setAttribute("onclick", "window.location.reload()");
+        mainDiv.append(childDiv);
+        mainDiv.append(closeButton);
+
+        document.getElementsByClassName("container-fluid")[0].appendChild(mainDiv);
+    }
+
 </script>
 </body>
 </html>

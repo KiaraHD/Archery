@@ -24,5 +24,7 @@ public interface AppUserRepository extends JpaRepository<AppUser, String> {
 
     boolean existsByNickname(String nickname);
 
+    List<AppUser> findAllByCreatedByIsNull();
+
 }
 

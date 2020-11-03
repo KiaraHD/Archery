@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <base href="./">
   <meta charset="utf-8">
@@ -27,9 +27,11 @@
     <li class="c-sidebar-nav-title">Optionen</li>
     <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/">
       <i style="margin-right: 10px;" class="fas fa-home"></i>Start</a></li>
-    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/account">
+    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/parcours">
       <i style="margin-right: 10px;" class="fas fa-bullseye"></i>Parcoure</a></li>
-    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="start.html">
+    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/users">
+      <i style="margin-right: 10px;" class="fas fa-users"></i>Users</a></li>
+    <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/logout">
       <i style="margin-right: 10px;" class="fas fa-sign-out-alt"></i>Abmelden</a></li>
   </ul>
 </div>
@@ -40,17 +42,15 @@
 
     <ul class="c-header-nav ml-auto mr-1">
       <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-        Benutzername<div class="c-avatar"><i class="fas fa-user"></i></div>
+        [[${user.nickname}]]<div class="c-avatar"><i class="fas fa-user"></i></div>
       </a>
         <div class="dropdown-menu dropdown-menu-right pt-2">
           <a class="dropdown-item" href="/">
             <i class="fas fa-home"></i> Start</a>
-          <a class="dropdown-item" href="/account">
-            <i class="fas fa-user-alt"></i> Konto</a>
-          <a class="dropdown-item" href="/users">
-            <i class="fas fa-users"></i> Users</a>
           <a class="dropdown-item" href="/parcours">
             <i class="fas fa-bullseye"></i> Parcoure</a>
+          <a class="dropdown-item" href="/users">
+            <i class="fas fa-users"></i> Users</a>
           <a class="dropdown-item" href="/logout">
             <i class="fas fa-sign-out-alt"></i> Abmelden</a>
         </div>
@@ -62,12 +62,12 @@
       <div class="container-fluid"></div>
     </main>
     <footer class="c-footer">
-      <div><a href="impressum.html">Archery</a> &copy; 2020 VGSP</div>
+      <div><a href="/impressum">Archery</a> &copy; 2020 VGSP</div>
     </footer>
   </div>
 </div>
 
-<script>
+<script th:inline="javascript">
 
   function showUsers()
   {
@@ -75,6 +75,53 @@
     h1.style = "color: #0066cc";
     h1.innerHTML = "User";
     document.getElementsByClassName("container-fluid")[0].appendChild(h1);
+
+    let table = document.createElement("table");
+    table.style = "width: 100%";
+
+    let tr = document.createElement("tr");
+
+    let th1 = document.createElement("th");
+    th1.innerHTML = "Nickname";
+
+    let th2 = document.createElement("th");
+    th2.innerHTML = "Vorname";
+
+    let th3 = document.createElement("th");
+    th3.innerHTML = "Nachname";
+
+    tr.append(th1);
+    tr.append(th2);
+    tr.append(th3);
+
+    table.append(tr);
+
+    let users = [[${list}]];
+    for (let user of users) {
+      let tr = document.createElement("tr");
+
+      let td = document.createElement("td");
+      td.innerHTML = user.nickname;
+
+      tr.append(td);
+
+
+      td = document.createElement("td");
+      td.innerHTML = user.firstName;
+
+      tr.append(td);
+
+
+      td = document.createElement("td");
+      td.innerHTML = user.lastName;
+
+      tr.append(td);
+
+      table.append(tr);
+    }
+
+    document.getElementsByClassName("container-fluid")[0].appendChild(table);
+
 
     br = document.createElement("br");
     document.getElementsByClassName("container-fluid")[0].appendChild(br);

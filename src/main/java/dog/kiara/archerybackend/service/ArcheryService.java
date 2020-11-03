@@ -62,6 +62,9 @@ public class ArcheryService {
         return playedGameRepository.findAll();
     }
 
+    public List<AppUser> getAllRegisteredUser() {
+        return appUserRepository.findAllByCreatedByIsNull();
+    }
 
     public void saveAverage(int scoredPoints) {
 
@@ -80,62 +83,6 @@ public class ArcheryService {
 
     public void createParcour(String name, String location, int number, AppUser appUser) {
         parcoursRepository.saveAndFlush(new Parcours(name, location, number, appUser));
-    }
-
-    /*Area:
-
-    1 - body
-    2 - Kill
-    3 - inner kill
-
-     */
-
-    public int calculate3ArrowRating(int numberOfShots, int area) {
-
-        if (numberOfShots == 1) {
-            if (area == 1) {
-                return 16;
-            } else if (area == 2) {
-                return 18;
-            } else if (area == 3) {
-                return 20;
-            }
-        } else if (numberOfShots == 2) {
-            if (area == 1) {
-                return 10;
-            } else if (area == 2) {
-                return 12;
-            } else if (area == 3) {
-                return 14;
-            }
-
-        } else if (numberOfShots == 3) {
-            if (area == 1) {
-                return 4;
-            } else if (area == 2) {
-                return 6;
-            } else if (area == 3) {
-                return 8;
-            }
-
-        }
-        return 0;
-    }
-
-
-    public int calculate2ArrowRating(int area) {
-
-        if (area == 3) {
-
-            return 5;
-        } else if (area == 2) {
-
-            return 8;
-        } else if (area == 1) {
-
-            return 10;
-        }
-        return 0;
     }
 
     public void createUser(String firstName, String lastName, String username, String password) {

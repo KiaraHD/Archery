@@ -19,9 +19,6 @@ public class LoginService {
     private final ArcheryService archeryService;
 
     public AppUser loginAppuser(String username, String password) {
-
-        System.out.println(archeryService == null);
-
         AppUser foundUser = archeryService.searchUserByNickname(username);
 
         if (foundUser != null && encodePassword(password).equals(foundUser.getPassword())) {

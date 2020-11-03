@@ -6,14 +6,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Archery</title>
-    <link rel="shortcut icon" href="../static/img/darts.png">
+    <link rel="shortcut icon" href="/img/darts.png">
 
     <!--CSS-->
 
     <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css">
     <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
-    <script src="../static/js/all.js"></script>
-    <link rel="stylesheet" href="../static/css/index.css">
+    <script src="/js/all.js"></script>
+    <link rel="stylesheet" href="/css/index.css">
 
     <!--Icons-->
 
@@ -25,33 +25,33 @@
 <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
     <ul class="c-sidebar-nav">
         <li class="c-sidebar-nav-title">Optionen</li>
-        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="index.html">
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/">
             <i style="margin-right: 10px;" class="fas fa-home"></i>Start</a></li>
-        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="parcours.html">
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/parcours">
             <i style="margin-right: 10px;" class="fas fa-bullseye"></i>Parcoure</a></li>
-        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="start.html">
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/users">
+            <i style="margin-right: 10px;" class="fas fa-users"></i>Users</a></li>
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/logout">
             <i style="margin-right: 10px;" class="fas fa-sign-out-alt"></i>Abmelden</a></li>
     </ul>
 </div>
 <div class="c-wrapper c-fixed-components">
     <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
 
-        <img src="../static/img/Logo_VGSP_transparent.png" width="120" height="50" onclick="location.href='index.html'">
+        <img src="/img/Logo_VGSP_transparent.png" width="120" height="50" onclick="location.href='/'">
 
         <ul class="c-header-nav ml-auto mr-1">
             <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                Benutzername<div class="c-avatar"><i class="fas fa-user"></i></div>
+                [[${user.nickname}]]<div class="c-avatar"><i class="fas fa-user"></i></div>
             </a>
                 <div class="dropdown-menu dropdown-menu-right pt-2">
-                    <a class="dropdown-item" href="index.html">
+                    <a class="dropdown-item" href="/">
                         <i class="fas fa-home"></i> Start</a>
-                    <a class="dropdown-item" href="account.html">
-                        <i class="fas fa-user-alt"></i> Konto</a>
-                    <a class="dropdown-item" href="users.html">
-                        <i class="fas fa-users"></i> Users</a>
-                    <a class="dropdown-item" href="parcours.html">
+                    <a class="dropdown-item" href="/parcours">
                         <i class="fas fa-bullseye"></i> Parcoure</a>
-                    <a class="dropdown-item" href="start.html">
+                    <a class="dropdown-item" href="/users">
+                        <i class="fas fa-users"></i> Users</a>
+                    <a class="dropdown-item" href="/logout">
                         <i class="fas fa-sign-out-alt"></i> Abmelden</a>
                 </div>
             </li>
@@ -61,7 +61,7 @@
         <main class="c-main">
             <div class="container-fluid">
                 <h3>Felix Temper</h3>
-                <img src="../static/img/Felix_Avatar.jpg" width="150" height="150">
+                <img src="/img/Felix_Avatar.jpg" width="150" height="150">
                 <br><br>
                 <i id="4" onclick="location.href='https://github.com/Flexous'" class="fab fa-github fa-5x"></i>
                 <i id="icon3" onclick="location.href='https://www.instagram.com/felix5k/'" class="fab fa-instagram fa-5x"></i>
@@ -69,14 +69,14 @@
                 <br><br>
 
                 <h3>Kiara Kaiser</h3>
-                <img src="../static/img/Kiara_Avatar.png" width="150" height="150">
+                <img src="/img/Kiara_Avatar.png" width="150" height="150">
                 <br><br>
                 <i id="icon" onclick="location.href='https://github.com/Kiara144p'"class="fab fa-github fa-5x"></i>
                 <i id="icon2" onclick="location.href='https://www.instagram.com/_kiara_k_/'" class="fab fa-instagram fa-5x"></i>
             </div>
         </main>
         <footer class="c-footer">
-            <div><a href="impressum.html">Archery</a> &copy; 2020 VGSP</div>
+            <div><a href="/impressum">Archery</a> &copy; 2020 VGSP</div>
         </footer>
     </div>
 </div>
