@@ -13,51 +13,29 @@
     <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.min.js"></script>
 </head>
 
-<body class="c-app flex-row align-items-center">
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card-group">
-                <div class="card p-4">
-                    <div class="card-body">
-                        <h1>Anmelden</h1>
-                        <p class="text-muted">Mit einem bestehenden Benutzer anmelden</p>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend"></div>
-                            <input id="usernameField" name="usernameField" class="form-control"
-                                   type="text" placeholder="Nickname">
-                        </div>
-                        <div class="input-group mb-4">
-                            <div class="input-group-prepend"></div>
-                            <input id="passwordField" class="form-control" type="password" placeholder="Passwort">
-                        </div>
-                        <div class="row">
-                            <div style="margin-left: 13px;">
-                                <button onclick="location.href = '/passwordreset'" class="btn btn-primary px-5"
-                                        type="button" style="background-color: red; border-color: red;">Passwort
-                                    vergessen
-                                </button>
-                            </div>
-
-                            <div style="margin-left: 13px; margin-top: 10px;">
-                                <button onclick="login()"
-                                        class="btn btn-primary px-5" type="button"
-                                        style="background-color: green; border-color: green;">Anmelden
-                                </button>
-                            </div>
-                            <div style="margin-left: 13px; margin-top: 10px;">
-                                <button onclick="location.href = '/register'" class="btn btn-primary px-5"
-                                        type="button"
-                                        style="background-color: #0066cc; border-color: #0066cc;">Registrieren
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<body class="c-app flex-row align-items-center" style="background-color: white;">
+    <div style="margin:0 auto;">
+        <h1 style="font-size: 100px;">Anmelden</h1>
+        <div class="input-group mb-3">
+            <input id="usernameField" name="usernameField" class="form-control" type="text" placeholder="Nickname" style="height: 100px;">
             </div>
-        </div>
+            <div class="input-group mb-4">
+                <input id="passwordField" class="form-control" type="password" placeholder="Passwort" style="height: 100px;">
+            </div>
+            <div>
+                <button onclick="location.href = '/passwordreset'" class="btn btn-primary px-5" 
+                style="background-color: white; border-color: red; color: red; width: 100%; margin-bottom: 20px; height: 60px; font-size: x-large;">Passwort vergessen</button>
+            </div>
+            <div>
+                <button onclick="login()" class="btn btn-primary px-5" 
+                style="background-color: green; border-color: green; width: 100%; margin-bottom: 20px; height: 100px; font-size: x-large;">Anmelden</button>
+            </div>
+            <div>
+                <button onclick="location.href = '/register'" class="btn btn-primary px-5"
+                style="background-color: #0066cc; border-color: #0066cc; width: 100%; height: 100px; font-size: x-large;">Registrieren</button>
+            </div>
     </div>
-</div>
+
 <script th:inline="javascript">
     function login() {
         let username = document.getElementById("usernameField").value;
