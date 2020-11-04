@@ -119,12 +119,6 @@ function editUserData()
     document.getElementsByClassName("container-fluid")[0].appendChild(form);
 }
 
-function getParcoursFromDatabase()
-{
-
-}
-
-
 function editParcourData()
 {
     let form = document.createElement("form");
