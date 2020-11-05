@@ -432,7 +432,7 @@
                 amount += score[selectedUser.nickname];
             }
             var h4 = document.createElement('h4');
-            h4.innerHTML = selectedUser.nickname + ": Ø " + Number(amount / scores.length).toFixed(2);
+            h4.innerHTML = selectedUser.nickname + " - Gesamtpunkte:" + amount +" Ø " + Number(amount / scores.length).toFixed(2);
             childDiv.appendChild(h4);
         }
 
