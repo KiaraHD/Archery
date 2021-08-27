@@ -1,0 +1,1 @@
+/usr/bin/java $JVM_OPTS -jar /opt/Archery/archerybackend-0.0.1-SNAPSHOT.jar $OPTS

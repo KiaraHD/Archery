@@ -4,19 +4,21 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.4.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
+	<artifactId>spring-boot-starter-parent</artifactId>
+	<version>2.3.4.RELEASE</version>
     </parent>
     <groupId>dog.kiara</groupId>
     <artifactId>archerybackend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>archerybackend</name>
+    <packaging>jar</packaging>
     <description>Archery Backend</description>
 
     <properties>
         <java.version>1.8</java.version>
-    </properties>
+	<rpm.skipSigning>true</rpm.skipSigning> 
+	<rpm.name>Archery</rpm.name>  
+ </properties>
 
     <dependencies>
         <dependency>
@@ -58,11 +60,6 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.google.firebase</groupId>
-            <artifactId>firebase-admin</artifactId>
-            <version>7.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
@@ -81,6 +78,155 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-        </plugins>
+	    <plugin>
+		<groupId>de.dentrassi.maven</groupId>
+		<artifactId>rpm</artifactId>
+		<version>1.5.0</version>	
+
+		<extensions>true</extensions>   
+		<executions>
+		  <execution>
+		    <phase>package</phase>
+		    <goals>
+		      <goal>rpm</goal>	 
+		    </goals>
+	
+		   <configuration>
+                     <attach>true</attach>
+                     <group>Application/Misc</group> 
+                     <packageName>Archery</packageName>
+
+		     <requires>
+		       <require>java-11-openjdk-headless</require>
+		       <require>tomcat-native</require>
+		       <require>mysql</require>
+                     </requires>
+
+             <beforeInstallation>
+                <script>
+                  mkdir -p /var/home
+                  getent group ${rpm.name} > /dev/null || groupadd -r ${rpm.name}
+                  getent passwd ${rpm.name} > /dev/null || \
+                  useradd -m -r -d /var/home/${rpm.name} -g ${rpm.name} \
+                  -s /sbin/nologin -c "${rpm.name} app" ${rpm.name}
+                </script>
+              </beforeInstallation>
+              <afterInstallation>
+                <script>
+                  systemctl daemon-reload
+                  systemctl condrestart ${rpm.name} > /dev/null 2&lt;&amp;1
+                </script>
+              </afterInstallation>
+              <beforeRemoval>
+                <script>
+                  systemctl daemon-reload
+                  systemctl condrestart ${rpm.name} > /dev/null 2&lt;&amp;1
+                </script>
+              </beforeRemoval>
+			
+	     <rulesets>
+                <ruleset>
+                  <id>my-default</id>
+                  <rules>
+                    <rule>
+                      <user>root</user>
+                      <group>root</group>
+                      <mode>0644</mode>
+                    </rule>
+                    <rule>
+                      <when>
+                        <type>directory</type>
+                      </when>
+                      <mode>0755</mode>
+                    </rule>
+                    <rule>
+                      <when>
+                        <prefix>/usr/bin</prefix>
+                      </when>
+                      <mode>0755</mode>
+                    </rule>
+                    <rule>
+                      <when>
+                        <prefix>/etc/</prefix>
+                      </when>
+                      <configuration>true</configuration>
+                      <noreplace>true</noreplace>
+                      <mode>0640</mode>
+                    </rule>
+   	            <rule>
+                      <when>
+                        <prefix>/etc/</prefix>
+                        <type>directory</type>
+                      </when>
+                      <configuration>true</configuration>
+                      <noreplace>true</noreplace>
+                      <mode>0750</mode>
+                    </rule>
+                    <file>
+                      <when>
+                        <prefix>/usr/share/doc/</prefix>
+                      </when>
+                      <documentation>true</documentation>
+                    </file>
+                    <file>
+                      <when>
+                        <suffix>README.txt</suffix>
+                      </when>
+                      <readme>true</readme>
+                    </file>
+                  </rules>
+                </ruleset>
+              </rulesets>
+		
+              <entries>
+    	         <entry>
+                  <name>/etc/${rpm.name}</name>
+                  <directory>true</directory>
+                  <user>${rpm.name}</user>
+                  <group>${rpm.name}</group>
+                  <ruleset>my-default</ruleset>
+                </entry>
+                <entry>
+                  <name>/opt/archery/${rpm.name}/${rpm.name}.jar</name>
+                  <file>target/${project.artifactId}-${project.version}.jar</file>
+                  <ruleset>my-default</ruleset>
+                </entry>
+
+	        <entry>  
+ 		  <name>/etc/${rpm.name}/application.properties</name>
+                  <file>src/main/resources/application.properties</file>
+                  <mode>0644</mode>
+                  <ruleset>my-default</ruleset>
+                </entry>
+     	        <entry>
+                  <name>/usr/lib/systemd/system/${rpm.name}/${rpm.name}.service</name>
+                  <file>src/rpmbuild/archery.service</file>
+                  <ruleset>my-default</ruleset>
+                </entry>
+  	        <entry>
+                  <name>/usr/bin/${rpm.name}</name>
+                  <file>src/rpmbuild/archery.bin</file>
+                  <ruleset>my-default</ruleset>
+                </entry>
+		<entry>
+                  <name>/var/log/${rpm.name}</name>
+                  <directory>true</directory>
+                  <user>${rpm.name}</user>
+                  <group>${rpm.name}</group>
+                  <mode>0770</mode>
+                  <ruleset>my-default</ruleset>
+                </entry>
+     	        <entry>
+                  <name>/opt/archery/${rpm.name}.jar</name>
+                  <file>target/${project.artifactId}-${project.version}.jar</file>
+                  <ruleset>my-default</ruleset>
+                </entry>
+	 </entries>
+	   </configuration>	
+	 </execution>
+        </executions>
+     </plugin>
+    </plugins>
     </build>
 </project>
+

@@ -1,0 +1,167 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-parent</artifactId>
+	<version>2.3.4.RELEASE</version>
+    </parent>
+    <groupId>dog.kiara</groupId>
+    <artifactId>archerybackend</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>archerybackend</name>
+    <packaging>jar</packaging>
+    <description>Archery Backend</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+	<rpm.skipSigning>true</rpm.skipSigning>   
+	<rpm.name>Archery</rpm.name>
+ </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>7.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+	    <plugin>
+		<groupId>de.dentrassi.maven</groupId>
+		<artifactId>rpm</artifactId>
+		<version>1.5.0</version>	
+
+		<extensions>true</extensions>   
+		<executions>
+		  <execution>
+		    <phase>package</phase>
+		    <goals>
+		      <goal>rpm</goal>	 
+		    </goals>
+	
+		   <configuration>
+                     <attach>true</attach>
+                     <group>Application/Misc</group> 
+                     <packageName>Archery</packageName>
+
+		     <requires>
+			<require>java = 11</require>
+			<require>tomcat-native</require>	   
+		     </requires>
+
+		    <beforeInstalation>
+		    </beforeInstalation>			  			
+		    <afterInstalation>
+		   
+		    </afterInstalation>
+                    <beforeRemoval>
+		   
+		    </beforeRemoval>	
+			
+		    <rulesets>
+		      <ruleset>
+			<id>default-ruleset</id>
+			<rules>
+			  <rule>
+			    <user>root</user>
+			    <group>root</group>
+			    <mode>0644</mode>
+			  </rule>		
+			</rules>	
+		      </ruleset>
+		   </rulesets>
+
+		  <entries>
+		
+
+    	         <entry>
+                  <name>/etc/Archery</name>
+                  <directory>true</directory>
+                  <user>Achery</user>
+                  <group>Archery</group>
+                  <ruleset>default-ruleset</ruleset>
+                </entry>
+                <entry>
+                  <name>/var/log/Archery</name>
+                  <directory>true</directory>
+                  <user>Archery</user>
+                  <group>Archery</group>
+                  <mode>0770</mode>
+                  <ruleset>default-ruleset</ruleset>
+                </entry>
+
+                <entry>
+                  <name>/opt/test/Archery/Archery.jar</name>
+                  <file>target/${project.artifactId}-${project.version}.jar</file>
+                  <ruleset>default-ruleset</ruleset>
+                </entry>
+
+
+		    <entry>  
+ 		      <name>/etc/Archery/application.properties</name>
+                      <file>src/main/resources/application.properties</file>
+                      <mode>0644</mode>
+                      <ruleset>default-ruleset</ruleset>
+                   </entry>
+ 		 </entries>
+	      </configuration>	
+	   </execution>
+        </executions>
+     </plugin>
+    </plugins>
+    </build>
+</project>
+

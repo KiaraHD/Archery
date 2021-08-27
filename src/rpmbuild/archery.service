@@ -1,0 +1,12 @@
+[Unit]
+Description=Archery Application
+Requires=network-online.target mysqld.service
+
+[Service]
+Type=simple
+User=archery
+Group=archery
+ExecStart=/opt/Archery/archery
+WorkingDirectory=/opt/Archery
+#EnvironmentFile=-/etc/sysconfig/archery
+Restart=always
